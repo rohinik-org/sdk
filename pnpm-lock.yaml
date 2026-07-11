@@ -319,6 +319,9 @@ importers:
       '@aios/compiler':
         specifier: workspace:*
         version: link:../compiler
+      '@aios/corpus':
+        specifier: workspace:*
+        version: link:../corpus
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
