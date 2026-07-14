@@ -18,6 +18,28 @@ importers:
         specifier: ^1.6.0
         version: 1.6.1(@types/node@22.20.0)
 
+  packages/acquisition:
+    dependencies:
+      '@aios/compiler':
+        specifier: workspace:*
+        version: link:../compiler
+      '@aios/installer':
+        specifier: workspace:*
+        version: link:../installer
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
   packages/adapter-sdk:
     dependencies:
       '@aios/compiler':
@@ -285,6 +307,28 @@ importers:
       '@aios/kernel':
         specifier: workspace:*
         version: link:../kernel
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  packages/installer:
+    dependencies:
+      '@aios/adapter-sdk':
+        specifier: workspace:*
+        version: link:../adapter-sdk
+      '@aios/compiler':
+        specifier: workspace:*
+        version: link:../compiler
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
