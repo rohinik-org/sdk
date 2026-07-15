@@ -20,10 +20,10 @@ importers:
 
   packages/acquisition:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/installer':
+      '@rohinik-org/installer':
         specifier: workspace:*
         version: link:../installer
     devDependencies:
@@ -42,13 +42,13 @@ importers:
 
   packages/adapter-sdk:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/kernel':
+      '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../kernel
-      '@aios/sdk':
+      '@rohinik-org/sdk':
         specifier: workspace:*
         version: link:../sdk
     devDependencies:
@@ -67,14 +67,14 @@ importers:
 
   packages/asset-sdk:
     dependencies:
-      '@aios/adapter-sdk':
+      '@rohinik-org/adapter-sdk':
         specifier: workspace:*
         version: link:../adapter-sdk
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
     devDependencies:
-      '@aios/claude-asset-frontend':
+      '@rohinik-org/claude-asset-frontend':
         specifier: workspace:*
         version: link:../claude-asset-frontend
       '@types/node':
@@ -92,28 +92,28 @@ importers:
 
   packages/autonomy:
     dependencies:
-      '@aios/acquisition':
+      '@rohinik-org/acquisition':
         specifier: workspace:*
         version: link:../acquisition
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/executor':
+      '@rohinik-org/executor':
         specifier: workspace:*
         version: link:../executor
-      '@aios/memory':
+      '@rohinik-org/memory':
         specifier: workspace:*
         version: link:../memory
-      '@aios/network':
+      '@rohinik-org/network':
         specifier: workspace:*
         version: link:../network
-      '@aios/observer':
+      '@rohinik-org/observer':
         specifier: workspace:*
         version: link:../observer
-      '@aios/orchestrator':
+      '@rohinik-org/orchestrator':
         specifier: workspace:*
         version: link:../orchestrator
-      '@aios/planner':
+      '@rohinik-org/planner':
         specifier: workspace:*
         version: link:../planner
     devDependencies:
@@ -132,7 +132,7 @@ importers:
 
   packages/capability-core:
     dependencies:
-      '@aios/sdk':
+      '@rohinik-org/sdk':
         specifier: workspace:*
         version: link:../sdk
       date-fns:
@@ -169,7 +169,7 @@ importers:
 
   packages/claude-asset-frontend:
     dependencies:
-      '@aios/asset-sdk':
+      '@rohinik-org/asset-sdk':
         specifier: workspace:*
         version: link:../asset-sdk
       js-yaml:
@@ -222,15 +222,15 @@ importers:
 
   packages/compiler:
     dependencies:
-      '@aios/cli':
-        specifier: workspace:*
-        version: link:../cli
-      '@aios/sdk':
-        specifier: workspace:*
-        version: link:../sdk
       '@anthropic-ai/sdk':
         specifier: '>=0.20.0'
         version: 0.39.0
+      '@rohinik-org/cli':
+        specifier: workspace:*
+        version: link:../cli
+      '@rohinik-org/sdk':
+        specifier: workspace:*
+        version: link:../sdk
       zod:
         specifier: ^3.0.0
         version: 3.25.76
@@ -250,10 +250,10 @@ importers:
 
   packages/corpus:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/kernel':
+      '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../kernel
     devDependencies:
@@ -272,7 +272,7 @@ importers:
 
   packages/cursor-asset-frontend:
     dependencies:
-      '@aios/asset-sdk':
+      '@rohinik-org/asset-sdk':
         specifier: workspace:*
         version: link:../asset-sdk
       js-yaml:
@@ -297,10 +297,10 @@ importers:
 
   packages/distribution:
     dependencies:
-      '@aios/adapter-sdk':
+      '@rohinik-org/adapter-sdk':
         specifier: workspace:*
         version: link:../adapter-sdk
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
       zod:
@@ -322,7 +322,7 @@ importers:
 
   packages/executor:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
     devDependencies:
@@ -341,10 +341,10 @@ importers:
 
   packages/host-discovery:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/kernel':
+      '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../kernel
     devDependencies:
@@ -363,10 +363,10 @@ importers:
 
   packages/installer:
     dependencies:
-      '@aios/adapter-sdk':
+      '@rohinik-org/adapter-sdk':
         specifier: workspace:*
         version: link:../adapter-sdk
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
     devDependencies:
@@ -385,7 +385,7 @@ importers:
 
   packages/kernel:
     dependencies:
-      '@aios/sdk':
+      '@rohinik-org/sdk':
         specifier: workspace:*
         version: link:../sdk
       pino:
@@ -398,7 +398,7 @@ importers:
         specifier: ^3.0.0
         version: 3.25.76
     devDependencies:
-      '@aios/capability-core':
+      '@rohinik-org/capability-core':
         specifier: workspace:*
         version: link:../capability-core
       '@types/node':
@@ -419,10 +419,10 @@ importers:
 
   packages/knowledge-graph:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/corpus':
+      '@rohinik-org/corpus':
         specifier: workspace:*
         version: link:../corpus
     devDependencies:
@@ -441,10 +441,10 @@ importers:
 
   packages/mcp-adapter:
     dependencies:
-      '@aios/adapter-sdk':
+      '@rohinik-org/adapter-sdk':
         specifier: workspace:*
         version: link:../adapter-sdk
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
     devDependencies:
@@ -463,7 +463,7 @@ importers:
 
   packages/memory:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
     devDependencies:
@@ -482,7 +482,7 @@ importers:
 
   packages/network:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
     devDependencies:
@@ -501,10 +501,10 @@ importers:
 
   packages/observer:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/network':
+      '@rohinik-org/network':
         specifier: workspace:*
         version: link:../network
     devDependencies:
@@ -523,10 +523,10 @@ importers:
 
   packages/orchestrator:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/executor':
+      '@rohinik-org/executor':
         specifier: workspace:*
         version: link:../executor
     devDependencies:
@@ -560,10 +560,10 @@ importers:
 
   packages/planner:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/workflow':
+      '@rohinik-org/workflow':
         specifier: workspace:*
         version: link:../workflow
     devDependencies:
@@ -582,12 +582,12 @@ importers:
 
   packages/provider-anthropic:
     dependencies:
-      '@aios/sdk':
-        specifier: workspace:*
-        version: link:../sdk
       '@anthropic-ai/sdk':
         specifier: ^0.39.0
         version: 0.39.0
+      '@rohinik-org/sdk':
+        specifier: workspace:*
+        version: link:../sdk
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -604,7 +604,7 @@ importers:
 
   packages/provider-null-reasoning:
     dependencies:
-      '@aios/sdk':
+      '@rohinik-org/sdk':
         specifier: workspace:*
         version: link:../sdk
     devDependencies:
@@ -623,7 +623,7 @@ importers:
 
   packages/provider-openai:
     dependencies:
-      '@aios/sdk':
+      '@rohinik-org/sdk':
         specifier: workspace:*
         version: link:../sdk
       openai:
@@ -645,13 +645,13 @@ importers:
 
   packages/recommender:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/corpus':
+      '@rohinik-org/corpus':
         specifier: workspace:*
         version: link:../corpus
-      '@aios/knowledge-graph':
+      '@rohinik-org/knowledge-graph':
         specifier: workspace:*
         version: link:../knowledge-graph
     devDependencies:
@@ -668,9 +668,28 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
+  packages/reflection:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../compiler
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
   packages/runtime:
     dependencies:
-      '@aios/kernel':
+      '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../kernel
       js-yaml:
@@ -683,7 +702,7 @@ importers:
         specifier: ^3.0.0
         version: 3.25.76
     devDependencies:
-      '@aios/capability-core':
+      '@rohinik-org/capability-core':
         specifier: workspace:*
         version: link:../capability-core
       '@types/js-yaml':
@@ -707,33 +726,36 @@ importers:
 
   packages/runtime-validation:
     dependencies:
-      '@aios/acquisition':
+      '@rohinik-org/acquisition':
         specifier: workspace:*
         version: link:../acquisition
-      '@aios/autonomy':
+      '@rohinik-org/autonomy':
         specifier: workspace:*
         version: link:../autonomy
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/executor':
+      '@rohinik-org/executor':
         specifier: workspace:*
         version: link:../executor
-      '@aios/memory':
+      '@rohinik-org/memory':
         specifier: workspace:*
         version: link:../memory
-      '@aios/network':
+      '@rohinik-org/network':
         specifier: workspace:*
         version: link:../network
-      '@aios/observer':
+      '@rohinik-org/observer':
         specifier: workspace:*
         version: link:../observer
-      '@aios/orchestrator':
+      '@rohinik-org/orchestrator':
         specifier: workspace:*
         version: link:../orchestrator
-      '@aios/planner':
+      '@rohinik-org/planner':
         specifier: workspace:*
         version: link:../planner
+      '@rohinik-org/reflection':
+        specifier: workspace:*
+        version: link:../reflection
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -762,17 +784,17 @@ importers:
 
   packages/server:
     dependencies:
-      '@aios/kernel':
+      '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../kernel
-      '@aios/runtime':
+      '@rohinik-org/runtime':
         specifier: workspace:*
         version: link:../runtime
       fastify:
         specifier: ^5.0.0
         version: 5.9.0
     devDependencies:
-      '@aios/capability-core':
+      '@rohinik-org/capability-core':
         specifier: workspace:*
         version: link:../capability-core
       '@types/node':
@@ -790,10 +812,10 @@ importers:
 
   packages/shell-nl:
     dependencies:
-      '@aios/cli':
+      '@rohinik-org/cli':
         specifier: workspace:*
         version: link:../cli
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
     devDependencies:
@@ -812,7 +834,7 @@ importers:
 
   packages/tool-filesystem:
     dependencies:
-      '@aios/sdk':
+      '@rohinik-org/sdk':
         specifier: workspace:*
         version: link:../sdk
     devDependencies:
@@ -831,10 +853,10 @@ importers:
 
   packages/workflow:
     dependencies:
-      '@aios/compiler':
+      '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@aios/corpus':
+      '@rohinik-org/corpus':
         specifier: workspace:*
         version: link:../corpus
     devDependencies:
