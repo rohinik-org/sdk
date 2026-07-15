@@ -3,8 +3,8 @@ dist/
 *.tsbuildinfo
 .DS_Store
 benchmarks/results/
-# Local AIOS installation state (per-developer, not committed)
-.aios/
-# local dev bootstrap — superseded by `aios start`
+# Local Rohinik installation state (per-developer, not committed)
+.rohinik/
+# local dev bootstrap — superseded by `rhk start`
 start.mjs
-aios.config.yaml
+rohinik.yaml
