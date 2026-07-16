@@ -953,6 +953,49 @@ importers:
         version: 1.6.1(@types/node@22.20.0)
 
   packages/sdk:
+    dependencies:
+      '@rohinik-org/acquisition':
+        specifier: workspace:*
+        version: link:../acquisition
+      '@rohinik-org/autonomy':
+        specifier: workspace:*
+        version: link:../autonomy
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../compiler
+      '@rohinik-org/distributed':
+        specifier: workspace:*
+        version: link:../distributed
+      '@rohinik-org/executor':
+        specifier: workspace:*
+        version: link:../executor
+      '@rohinik-org/memory':
+        specifier: workspace:*
+        version: link:../memory
+      '@rohinik-org/network':
+        specifier: workspace:*
+        version: link:../network
+      '@rohinik-org/observer':
+        specifier: workspace:*
+        version: link:../observer
+      '@rohinik-org/orchestrator':
+        specifier: workspace:*
+        version: link:../orchestrator
+      '@rohinik-org/planner':
+        specifier: workspace:*
+        version: link:../planner
+      '@rohinik-org/reasoning':
+        specifier: workspace:*
+        version: link:../reasoning
+      '@rohinik-org/reflection':
+        specifier: workspace:*
+        version: link:../reflection
+      '@rohinik-org/runtime-certification':
+        specifier: workspace:*
+        version: link:../runtime-certification
+      '@rohinik-org/runtime-validation':
+        specifier: workspace:*
+        version: link:../runtime-validation
     devDependencies:
       tsup:
         specifier: '*'
