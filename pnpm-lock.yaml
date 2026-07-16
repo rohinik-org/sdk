@@ -526,6 +526,28 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
+  packages/multi-agent:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../compiler
+      '@rohinik-org/reasoning':
+        specifier: workspace:*
+        version: link:../reasoning
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
   packages/network:
     dependencies:
       '@rohinik-org/compiler':
@@ -809,6 +831,9 @@ importers:
       '@rohinik-org/memory':
         specifier: workspace:*
         version: link:../memory
+      '@rohinik-org/multi-agent':
+        specifier: workspace:*
+        version: link:../multi-agent
       '@rohinik-org/network':
         specifier: workspace:*
         version: link:../network
