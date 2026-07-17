@@ -42,6 +42,7 @@ packages:
   - 'sdk/typescript/adapter-sdk'
   - 'sdk/typescript/asset-sdk'
   - 'sdk/typescript/studio-sdk'
+  - 'sdk/typescript/console-sdk'
   # CLI
   - 'cli'
   # Tools
