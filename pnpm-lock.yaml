@@ -18,14 +18,20 @@ importers:
         specifier: ^1.6.0
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/acquisition:
+  cli:
     dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/installer':
-        specifier: workspace:*
-        version: link:../installer
+      chalk:
+        specifier: ^5.0.0
+        version: 5.6.2
+      cli-table3:
+        specifier: ^0.6.0
+        version: 0.6.5
+      commander:
+        specifier: ^12.0.0
+        version: 12.1.0
+      ora:
+        specifier: ^8.0.0
+        version: 8.2.0
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -40,17 +46,20 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/adapter-sdk:
+  compiler:
     dependencies:
-      '@rohinik-org/compiler':
+      '@anthropic-ai/sdk':
+        specifier: '>=0.20.0'
+        version: 0.39.0
+      '@rohinik-org/cli':
         specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/kernel':
+        version: link:../cli
+      '@rohinik-org/foundation':
         specifier: workspace:*
-        version: link:../kernel
-      '@rohinik-org/sdk':
-        specifier: workspace:*
-        version: link:../sdk
+        version: link:../core/kernel/foundation
+      zod:
+        specifier: ^3.0.0
+        version: 3.25.76
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -65,18 +74,56 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/asset-sdk:
+  core/drivers/anthropic:
+    dependencies:
+      '@anthropic-ai/sdk':
+        specifier: ^0.39.0
+        version: 0.39.0
+      '@rohinik-org/foundation':
+        specifier: workspace:*
+        version: link:../../kernel/foundation
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/drivers/filesystem:
+    dependencies:
+      '@rohinik-org/foundation':
+        specifier: workspace:*
+        version: link:../../kernel/foundation
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/drivers/mcp:
     dependencies:
       '@rohinik-org/adapter-sdk':
         specifier: workspace:*
-        version: link:../adapter-sdk
+        version: link:../../../sdk/typescript/adapter-sdk
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
+        version: link:../../../compiler
     devDependencies:
-      '@rohinik-org/claude-asset-frontend':
-        specifier: workspace:*
-        version: link:../claude-asset-frontend
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.0
@@ -90,29 +137,92 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/autonomy:
+  core/drivers/null-reasoning:
+    dependencies:
+      '@rohinik-org/foundation':
+        specifier: workspace:*
+        version: link:../../kernel/foundation
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/drivers/openai:
+    dependencies:
+      '@rohinik-org/foundation':
+        specifier: workspace:*
+        version: link:../../kernel/foundation
+      openai:
+        specifier: ^4.67.0
+        version: 4.104.0(zod@3.25.76)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/intelligence/acquisition:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+      '@rohinik-org/installer':
+        specifier: workspace:*
+        version: link:../../../tools/installer
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/intelligence/autonomy:
     dependencies:
       '@rohinik-org/acquisition':
         specifier: workspace:*
         version: link:../acquisition
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
+        version: link:../../../compiler
       '@rohinik-org/executor':
         specifier: workspace:*
-        version: link:../executor
+        version: link:../../runtime/execution/executor
       '@rohinik-org/memory':
         specifier: workspace:*
-        version: link:../memory
+        version: link:../../memory
       '@rohinik-org/network':
         specifier: workspace:*
-        version: link:../network
+        version: link:../../runtime/networking/network
       '@rohinik-org/observer':
         specifier: workspace:*
         version: link:../observer
       '@rohinik-org/orchestrator':
         specifier: workspace:*
-        version: link:../orchestrator
+        version: link:../../runtime/orchestration
       '@rohinik-org/planner':
         specifier: workspace:*
         version: link:../planner
@@ -130,11 +240,149 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/capability-core:
+  core/intelligence/multi-agent:
     dependencies:
-      '@rohinik-org/sdk':
+      '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../sdk
+        version: link:../../../compiler
+      '@rohinik-org/reasoning':
+        specifier: workspace:*
+        version: link:../reasoning
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/intelligence/observer:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+      '@rohinik-org/network':
+        specifier: workspace:*
+        version: link:../../runtime/networking/network
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/intelligence/planner:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+      '@rohinik-org/workflow':
+        specifier: workspace:*
+        version: link:../../runtime/execution/workflow
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/intelligence/reasoning:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/intelligence/reflection:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/kernel:
+    dependencies:
+      '@rohinik-org/foundation':
+        specifier: workspace:*
+        version: link:foundation
+      pino:
+        specifier: ^9.0.0
+        version: 9.14.0
+      semver:
+        specifier: ^7.0.0
+        version: 7.8.5
+      zod:
+        specifier: ^3.0.0
+        version: 3.25.76
+    devDependencies:
+      '@rohinik-org/capability-core':
+        specifier: workspace:*
+        version: link:capability-core
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      '@types/semver':
+        specifier: ^7.0.0
+        version: 7.7.1
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/kernel/capability-core:
+    dependencies:
+      '@rohinik-org/foundation':
+        specifier: workspace:*
+        version: link:../foundation
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -167,166 +415,66 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/claude-asset-frontend:
-    dependencies:
-      '@rohinik-org/asset-sdk':
-        specifier: workspace:*
-        version: link:../asset-sdk
-      js-yaml:
-        specifier: ^4.1.0
-        version: 4.3.0
-    devDependencies:
-      '@types/js-yaml':
-        specifier: ^4.0.9
-        version: 4.0.9
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/cli:
-    dependencies:
-      chalk:
-        specifier: ^5.0.0
-        version: 5.6.2
-      cli-table3:
-        specifier: ^0.6.0
-        version: 0.6.5
-      commander:
-        specifier: ^12.0.0
-        version: 12.1.0
-      ora:
-        specifier: ^8.0.0
-        version: 8.2.0
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/compiler:
-    dependencies:
-      '@anthropic-ai/sdk':
-        specifier: '>=0.20.0'
-        version: 0.39.0
-      '@rohinik-org/cli':
-        specifier: workspace:*
-        version: link:../cli
-      '@rohinik-org/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-      zod:
-        specifier: ^3.0.0
-        version: 3.25.76
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/corpus:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/kernel':
-        specifier: workspace:*
-        version: link:../kernel
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/cursor-asset-frontend:
-    dependencies:
-      '@rohinik-org/asset-sdk':
-        specifier: workspace:*
-        version: link:../asset-sdk
-      js-yaml:
-        specifier: ^4.1.0
-        version: 4.3.0
-    devDependencies:
-      '@types/js-yaml':
-        specifier: ^4.0.9
-        version: 4.0.9
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/daemon:
+  core/kernel/foundation:
     dependencies:
       '@rohinik-org/acquisition':
         specifier: workspace:*
-        version: link:../acquisition
+        version: link:../../intelligence/acquisition
       '@rohinik-org/autonomy':
         specifier: workspace:*
-        version: link:../autonomy
+        version: link:../../intelligence/autonomy
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
+        version: link:../../../compiler
+      '@rohinik-org/conformance':
+        specifier: workspace:*
+        version: link:../../runtime/conformance
+      '@rohinik-org/distributed':
+        specifier: workspace:*
+        version: link:../../runtime/distributed
       '@rohinik-org/executor':
         specifier: workspace:*
-        version: link:../executor
+        version: link:../../runtime/execution/executor
       '@rohinik-org/memory':
         specifier: workspace:*
-        version: link:../memory
+        version: link:../../memory
       '@rohinik-org/network':
         specifier: workspace:*
-        version: link:../network
+        version: link:../../runtime/networking/network
       '@rohinik-org/observer':
         specifier: workspace:*
-        version: link:../observer
+        version: link:../../intelligence/observer
       '@rohinik-org/orchestrator':
         specifier: workspace:*
-        version: link:../orchestrator
+        version: link:../../runtime/orchestration
       '@rohinik-org/planner':
         specifier: workspace:*
-        version: link:../planner
+        version: link:../../intelligence/planner
+      '@rohinik-org/reasoning':
+        specifier: workspace:*
+        version: link:../../intelligence/reasoning
       '@rohinik-org/reflection':
         specifier: workspace:*
-        version: link:../reflection
+        version: link:../../intelligence/reflection
+      '@rohinik-org/runtime-certification':
+        specifier: workspace:*
+        version: link:../../runtime/certification
+    devDependencies:
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/memory:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../compiler
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -341,80 +489,14 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/distributed:
+  core/memory/corpus:
     dependencies:
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/daemon':
-        specifier: workspace:*
-        version: link:../daemon
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/distribution:
-    dependencies:
-      '@rohinik-org/adapter-sdk':
-        specifier: workspace:*
-        version: link:../adapter-sdk
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-      zod:
-        specifier: ^3.0.0
-        version: 3.25.76
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/executor:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/host-discovery:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
+        version: link:../../../compiler
       '@rohinik-org/kernel':
         specifier: workspace:*
-        version: link:../kernel
+        version: link:../../kernel
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -429,67 +511,11 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/installer:
-    dependencies:
-      '@rohinik-org/adapter-sdk':
-        specifier: workspace:*
-        version: link:../adapter-sdk
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/kernel:
-    dependencies:
-      '@rohinik-org/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-      pino:
-        specifier: ^9.0.0
-        version: 9.14.0
-      semver:
-        specifier: ^7.0.0
-        version: 7.8.5
-      zod:
-        specifier: ^3.0.0
-        version: 3.25.76
-    devDependencies:
-      '@rohinik-org/capability-core':
-        specifier: workspace:*
-        version: link:../capability-core
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      '@types/semver':
-        specifier: ^7.0.0
-        version: 7.7.1
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/knowledge-graph:
+  core/memory/knowledge-graph:
     dependencies:
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
+        version: link:../../../compiler
       '@rohinik-org/corpus':
         specifier: workspace:*
         version: link:../corpus
@@ -507,256 +533,11 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/mcp-adapter:
-    dependencies:
-      '@rohinik-org/adapter-sdk':
-        specifier: workspace:*
-        version: link:../adapter-sdk
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/memory:
+  core/memory/recommender:
     dependencies:
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/multi-agent:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/reasoning':
-        specifier: workspace:*
-        version: link:../reasoning
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/network:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/observer:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/network':
-        specifier: workspace:*
-        version: link:../network
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/orchestrator:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/executor':
-        specifier: workspace:*
-        version: link:../executor
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/package-manager:
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/planner:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/workflow':
-        specifier: workspace:*
-        version: link:../workflow
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/provider-anthropic:
-    dependencies:
-      '@anthropic-ai/sdk':
-        specifier: ^0.39.0
-        version: 0.39.0
-      '@rohinik-org/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/provider-null-reasoning:
-    dependencies:
-      '@rohinik-org/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/provider-openai:
-    dependencies:
-      '@rohinik-org/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-      openai:
-        specifier: ^4.67.0
-        version: 4.104.0(zod@3.25.76)
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/reasoning:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/recommender:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
+        version: link:../../../compiler
       '@rohinik-org/corpus':
         specifier: workspace:*
         version: link:../corpus
@@ -777,26 +558,7 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/reflection:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/runtime:
+  core/runtime:
     dependencies:
       '@rohinik-org/kernel':
         specifier: workspace:*
@@ -813,7 +575,7 @@ importers:
     devDependencies:
       '@rohinik-org/capability-core':
         specifier: workspace:*
-        version: link:../capability-core
+        version: link:../kernel/capability-core
       '@types/js-yaml':
         specifier: ^4.0.0
         version: 4.0.9
@@ -833,53 +595,17 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/runtime-certification:
+  core/runtime/artifacts:
     dependencies:
-      '@rohinik-org/acquisition':
+      '@rohinik-org/adapter-sdk':
         specifier: workspace:*
-        version: link:../acquisition
-      '@rohinik-org/autonomy':
-        specifier: workspace:*
-        version: link:../autonomy
+        version: link:../../../sdk/typescript/adapter-sdk
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/daemon':
-        specifier: workspace:*
-        version: link:../daemon
-      '@rohinik-org/distributed':
-        specifier: workspace:*
-        version: link:../distributed
-      '@rohinik-org/executor':
-        specifier: workspace:*
-        version: link:../executor
-      '@rohinik-org/memory':
-        specifier: workspace:*
-        version: link:../memory
-      '@rohinik-org/multi-agent':
-        specifier: workspace:*
-        version: link:../multi-agent
-      '@rohinik-org/network':
-        specifier: workspace:*
-        version: link:../network
-      '@rohinik-org/observer':
-        specifier: workspace:*
-        version: link:../observer
-      '@rohinik-org/orchestrator':
-        specifier: workspace:*
-        version: link:../orchestrator
-      '@rohinik-org/planner':
-        specifier: workspace:*
-        version: link:../planner
-      '@rohinik-org/reasoning':
-        specifier: workspace:*
-        version: link:../reasoning
-      '@rohinik-org/reflection':
-        specifier: workspace:*
-        version: link:../reflection
-      '@rohinik-org/runtime-validation':
-        specifier: workspace:*
-        version: link:../runtime-validation
+        version: link:../../../compiler
+      zod:
+        specifier: ^3.0.0
+        version: 3.25.76
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -894,17 +620,20 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/runtime-validation:
+  core/runtime/certification:
     dependencies:
       '@rohinik-org/acquisition':
         specifier: workspace:*
-        version: link:../acquisition
+        version: link:../../intelligence/acquisition
       '@rohinik-org/autonomy':
         specifier: workspace:*
-        version: link:../autonomy
+        version: link:../../intelligence/autonomy
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
+        version: link:../../../compiler
+      '@rohinik-org/conformance':
+        specifier: workspace:*
+        version: link:../conformance
       '@rohinik-org/daemon':
         specifier: workspace:*
         version: link:../daemon
@@ -913,31 +642,31 @@ importers:
         version: link:../distributed
       '@rohinik-org/executor':
         specifier: workspace:*
-        version: link:../executor
+        version: link:../execution/executor
       '@rohinik-org/memory':
         specifier: workspace:*
-        version: link:../memory
+        version: link:../../memory
       '@rohinik-org/multi-agent':
         specifier: workspace:*
-        version: link:../multi-agent
+        version: link:../../intelligence/multi-agent
       '@rohinik-org/network':
         specifier: workspace:*
-        version: link:../network
+        version: link:../networking/network
       '@rohinik-org/observer':
         specifier: workspace:*
-        version: link:../observer
+        version: link:../../intelligence/observer
       '@rohinik-org/orchestrator':
         specifier: workspace:*
-        version: link:../orchestrator
+        version: link:../orchestration
       '@rohinik-org/planner':
         specifier: workspace:*
-        version: link:../planner
+        version: link:../../intelligence/planner
       '@rohinik-org/reasoning':
         specifier: workspace:*
-        version: link:../reasoning
+        version: link:../../intelligence/reasoning
       '@rohinik-org/reflection':
         specifier: workspace:*
-        version: link:../reflection
+        version: link:../../intelligence/reflection
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -952,51 +681,54 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/sdk:
+  core/runtime/conformance:
     dependencies:
       '@rohinik-org/acquisition':
         specifier: workspace:*
-        version: link:../acquisition
+        version: link:../../intelligence/acquisition
       '@rohinik-org/autonomy':
         specifier: workspace:*
-        version: link:../autonomy
+        version: link:../../intelligence/autonomy
       '@rohinik-org/compiler':
         specifier: workspace:*
-        version: link:../compiler
+        version: link:../../../compiler
+      '@rohinik-org/daemon':
+        specifier: workspace:*
+        version: link:../daemon
       '@rohinik-org/distributed':
         specifier: workspace:*
         version: link:../distributed
       '@rohinik-org/executor':
         specifier: workspace:*
-        version: link:../executor
+        version: link:../execution/executor
       '@rohinik-org/memory':
         specifier: workspace:*
-        version: link:../memory
+        version: link:../../memory
+      '@rohinik-org/multi-agent':
+        specifier: workspace:*
+        version: link:../../intelligence/multi-agent
       '@rohinik-org/network':
         specifier: workspace:*
-        version: link:../network
+        version: link:../networking/network
       '@rohinik-org/observer':
         specifier: workspace:*
-        version: link:../observer
+        version: link:../../intelligence/observer
       '@rohinik-org/orchestrator':
         specifier: workspace:*
-        version: link:../orchestrator
+        version: link:../orchestration
       '@rohinik-org/planner':
         specifier: workspace:*
-        version: link:../planner
+        version: link:../../intelligence/planner
       '@rohinik-org/reasoning':
         specifier: workspace:*
-        version: link:../reasoning
+        version: link:../../intelligence/reasoning
       '@rohinik-org/reflection':
         specifier: workspace:*
-        version: link:../reflection
-      '@rohinik-org/runtime-certification':
-        specifier: workspace:*
-        version: link:../runtime-certification
-      '@rohinik-org/runtime-validation':
-        specifier: workspace:*
-        version: link:../runtime-validation
+        version: link:../../intelligence/reflection
     devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
       tsup:
         specifier: '*'
         version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
@@ -1007,21 +739,193 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/server:
+  core/runtime/daemon:
+    dependencies:
+      '@rohinik-org/acquisition':
+        specifier: workspace:*
+        version: link:../../intelligence/acquisition
+      '@rohinik-org/autonomy':
+        specifier: workspace:*
+        version: link:../../intelligence/autonomy
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+      '@rohinik-org/executor':
+        specifier: workspace:*
+        version: link:../execution/executor
+      '@rohinik-org/memory':
+        specifier: workspace:*
+        version: link:../../memory
+      '@rohinik-org/network':
+        specifier: workspace:*
+        version: link:../networking/network
+      '@rohinik-org/observer':
+        specifier: workspace:*
+        version: link:../../intelligence/observer
+      '@rohinik-org/orchestrator':
+        specifier: workspace:*
+        version: link:../orchestration
+      '@rohinik-org/planner':
+        specifier: workspace:*
+        version: link:../../intelligence/planner
+      '@rohinik-org/reflection':
+        specifier: workspace:*
+        version: link:../../intelligence/reflection
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/runtime/distributed:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+      '@rohinik-org/daemon':
+        specifier: workspace:*
+        version: link:../daemon
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/runtime/execution/executor:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../../compiler
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/runtime/execution/workflow:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../../compiler
+      '@rohinik-org/corpus':
+        specifier: workspace:*
+        version: link:../../../memory/corpus
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/runtime/networking/host-discovery:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../../compiler
+      '@rohinik-org/kernel':
+        specifier: workspace:*
+        version: link:../../../kernel
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/runtime/networking/network:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../../compiler
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/runtime/orchestration:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+      '@rohinik-org/executor':
+        specifier: workspace:*
+        version: link:../execution/executor
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  core/runtime/server:
     dependencies:
       '@rohinik-org/kernel':
         specifier: workspace:*
-        version: link:../kernel
+        version: link:../../kernel
       '@rohinik-org/runtime':
         specifier: workspace:*
-        version: link:../runtime
+        version: link:..
       fastify:
         specifier: ^5.0.0
         version: 5.9.0
     devDependencies:
       '@rohinik-org/capability-core':
         specifier: workspace:*
-        version: link:../capability-core
+        version: link:../../kernel/capability-core
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.0
@@ -1035,7 +939,57 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/shell-nl:
+  sdk/typescript/adapter-sdk:
+    dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+      '@rohinik-org/foundation':
+        specifier: workspace:*
+        version: link:../../../core/kernel/foundation
+      '@rohinik-org/kernel':
+        specifier: workspace:*
+        version: link:../../../core/kernel
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  sdk/typescript/asset-sdk:
+    dependencies:
+      '@rohinik-org/adapter-sdk':
+        specifier: workspace:*
+        version: link:../adapter-sdk
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
+    devDependencies:
+      '@rohinik-org/claude-asset-frontend':
+        specifier: workspace:*
+        version: link:../../../tools/claude/asset-frontend
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  shell:
     dependencies:
       '@rohinik-org/cli':
         specifier: workspace:*
@@ -1057,52 +1011,98 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)
 
-  packages/tool-filesystem:
-    dependencies:
-      '@rohinik-org/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
-  packages/workflow:
-    dependencies:
-      '@rohinik-org/compiler':
-        specifier: workspace:*
-        version: link:../compiler
-      '@rohinik-org/corpus':
-        specifier: workspace:*
-        version: link:../corpus
-    devDependencies:
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.20.0
-      tsup:
-        specifier: '*'
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
-      typescript:
-        specifier: '*'
-        version: 5.9.3
-      vitest:
-        specifier: '*'
-        version: 1.6.1(@types/node@22.20.0)
-
   tools/benchmark/reference-runner-node:
     dependencies:
       zod:
         specifier: ^3.0.0
         version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  tools/claude/asset-frontend:
+    dependencies:
+      '@rohinik-org/asset-sdk':
+        specifier: workspace:*
+        version: link:../../../sdk/typescript/asset-sdk
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.3.0
+    devDependencies:
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  tools/cursor/asset-frontend:
+    dependencies:
+      '@rohinik-org/asset-sdk':
+        specifier: workspace:*
+        version: link:../../../sdk/typescript/asset-sdk
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.3.0
+    devDependencies:
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  tools/installer:
+    dependencies:
+      '@rohinik-org/adapter-sdk':
+        specifier: workspace:*
+        version: link:../../sdk/typescript/adapter-sdk
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../compiler
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)
+
+  tools/package-manager:
     devDependencies:
       '@types/node':
         specifier: ^22.0.0

@@ -83,6 +83,6 @@ describe('AssetInstallManager', () => {
     const manager = new AssetInstallManager(registry, root, '0.1.0-alpha.1', '1.0')
     await manager.install(root)
     const { existsSync } = await import('node:fs')
-    expect(existsSync(join(root, '.aios', 'catalog.json'))).toBe(true)
+    expect(existsSync(join(root, '.rohinik', 'catalog.json'))).toBe(true)
   })
 })

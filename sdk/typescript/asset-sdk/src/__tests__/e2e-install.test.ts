@@ -16,7 +16,7 @@ const roots: string[] = []
 async function makeClaudeSkillRepo(skills: Record<string, string>): Promise<string> {
   const root = join(tmpdir(), `e2e-install-${randomUUID()}`)
   await mkdir(join(root, '.claude', 'skills'), { recursive: true })
-  await mkdir(join(root, '.aios'), { recursive: true })
+  await mkdir(join(root, '.rohinik'), { recursive: true })
   for (const [filename, content] of Object.entries(skills)) {
     await writeFile(join(root, '.claude', 'skills', filename), content, 'utf-8')
   }
@@ -67,7 +67,7 @@ This skill creates AutoCAD drawings.
     expect(record.registeredCapabilityIds.length).toBeGreaterThan(0)
 
     // Catalog written to disk
-    const catalogPath = join(root, '.aios', 'catalog.json')
+    const catalogPath = join(root, '.rohinik', 'catalog.json')
     expect(existsSync(catalogPath)).toBe(true)
 
     const { readFile } = await import('node:fs/promises')

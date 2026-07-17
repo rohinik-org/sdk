@@ -12,7 +12,7 @@ afterEach(() => { rmSync(TMP, { recursive: true, force: true }) })
 
 function mockAdapter(protocol: string, toolNames: string[]): CapabilityAdapter {
   return {
-    id: `@rohinik-org/${protocol}-adapter`, protocol, version: '1.0.0',
+    id: `@rohinik-org/${protocol}`, protocol, version: '1.0.0',
     discover: vi.fn().mockResolvedValue({
       protocol, metadata: {},
       items: toolNames.map(name => ({ name, description: `${name} tool`, tags: ['filesystem'] })),
