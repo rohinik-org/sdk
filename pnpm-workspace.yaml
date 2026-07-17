@@ -1,5 +1,15 @@
 packages:
   - 'packages/*'
+  - 'cli'
+  - 'tools/package-manager'
+  - 'tools/installer'
+  - 'tools/claude/asset-frontend'
+  - 'tools/cursor/asset-frontend'
+  - 'registry/packs/starter-pack'
+  - 'core/drivers/anthropic'
+  - 'core/drivers/openai'
+  - 'core/drivers/null-reasoning'
+  - 'core/drivers/filesystem'
   - 'apps/*'
   - 'tools/benchmark/reference-runner-node'
 allowBuilds:
