@@ -1,15 +1,56 @@
 packages:
-  - 'packages/*'
-  - 'cli'
-  - 'tools/package-manager'
-  - 'tools/installer'
-  - 'tools/claude/asset-frontend'
-  - 'tools/cursor/asset-frontend'
-  - 'registry/packs/starter-pack'
+  # Core — kernel
+  - 'core/kernel'
+  - 'core/kernel/foundation'
+  - 'core/kernel/capability-core'
+  # Core — runtime
+  - 'core/runtime'
+  - 'core/runtime/execution/executor'
+  - 'core/runtime/execution/workflow'
+  - 'core/runtime/orchestration'
+  - 'core/runtime/networking/network'
+  - 'core/runtime/networking/host-discovery'
+  - 'core/runtime/daemon'
+  - 'core/runtime/artifacts'
+  - 'core/runtime/server'
+  - 'core/runtime/conformance'
+  - 'core/runtime/certification'
+  - 'core/runtime/distributed'
+  # Core — intelligence
+  - 'core/intelligence/planner'
+  - 'core/intelligence/reasoning'
+  - 'core/intelligence/reflection'
+  - 'core/intelligence/autonomy'
+  - 'core/intelligence/multi-agent'
+  - 'core/intelligence/observer'
+  - 'core/intelligence/acquisition'
+  # Core — memory
+  - 'core/memory'
+  - 'core/memory/knowledge-graph'
+  - 'core/memory/corpus'
+  - 'core/memory/recommender'
+  # Core — drivers
   - 'core/drivers/anthropic'
   - 'core/drivers/openai'
   - 'core/drivers/null-reasoning'
+  - 'core/drivers/mcp'
   - 'core/drivers/filesystem'
+  # Compiler + shell
+  - 'compiler'
+  - 'shell'
+  # SDK
+  - 'sdk/typescript/adapter-sdk'
+  - 'sdk/typescript/asset-sdk'
+  # CLI
+  - 'cli'
+  # Tools
+  - 'tools/installer'
+  - 'tools/package-manager'
+  - 'tools/claude/asset-frontend'
+  - 'tools/cursor/asset-frontend'
+  # Registry
+  - 'registry/packs/starter-pack'
+  # Legacy (existing tooling)
   - 'apps/*'
   - 'tools/benchmark/reference-runner-node'
 allowBuilds:
