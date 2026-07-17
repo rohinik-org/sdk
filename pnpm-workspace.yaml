@@ -43,6 +43,8 @@ packages:
   - 'sdk/typescript/asset-sdk'
   - 'sdk/typescript/studio-sdk'
   - 'sdk/typescript/console-sdk'
+  - 'sdk/typescript/console'
+  - 'sdk/typescript/console-shell'
   # CLI
   - 'cli'
   # Tools
