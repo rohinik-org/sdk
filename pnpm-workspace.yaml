@@ -45,6 +45,9 @@ packages:
   - 'sdk/typescript/console-sdk'
   - 'sdk/typescript/console'
   - 'sdk/typescript/console-shell'
+  - 'sdk/typescript/extensions'
+  - 'sdk/typescript/marketplace-sdk'
+  - 'sdk/typescript/marketplace'
   # CLI
   - 'cli'
   # Tools
