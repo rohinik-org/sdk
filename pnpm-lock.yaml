@@ -383,6 +383,9 @@ importers:
 
   core/kernel/capability-core:
     dependencies:
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../../compiler
       '@rohinik-org/foundation':
         specifier: workspace:*
         version: link:../foundation
@@ -563,6 +566,12 @@ importers:
 
   core/runtime:
     dependencies:
+      '@rohinik-org/capability-core':
+        specifier: workspace:*
+        version: link:../kernel/capability-core
+      '@rohinik-org/compiler':
+        specifier: workspace:*
+        version: link:../../compiler
       '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../kernel
@@ -576,9 +585,6 @@ importers:
         specifier: ^3.0.0
         version: 3.25.76
     devDependencies:
-      '@rohinik-org/capability-core':
-        specifier: workspace:*
-        version: link:../kernel/capability-core
       '@types/js-yaml':
         specifier: ^4.0.0
         version: 4.0.9
