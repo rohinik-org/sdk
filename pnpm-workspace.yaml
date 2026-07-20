@@ -16,6 +16,7 @@ packages:
   - 'core/runtime/conformance'
   - 'core/runtime/certification'
   - 'core/runtime/distributed'
+  - 'core/runtime/rsh'
   - 'core/runtime/runtime-state'
   - 'core/runtime/interaction'
   # Core — intelligence
