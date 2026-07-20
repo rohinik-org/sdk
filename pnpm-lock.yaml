@@ -860,6 +860,25 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
 
+  core/runtime/interaction:
+    dependencies:
+      '@rohinik-org/runtime-state':
+        specifier: workspace:*
+        version: link:../runtime-state
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
   core/runtime/networking/host-discovery:
     dependencies:
       '@rohinik-org/compiler':
@@ -913,6 +932,28 @@ importers:
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
+  core/runtime/runtime-state:
+    dependencies:
+      uuid:
+        specifier: ^11.0.0
+        version: 11.1.1
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      '@types/uuid':
+        specifier: ^10.0.0
+        version: 10.0.0
       tsup:
         specifier: '*'
         version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
