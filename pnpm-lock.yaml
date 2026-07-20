@@ -572,6 +572,9 @@ importers:
       '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../../compiler
+      '@rohinik-org/corpus':
+        specifier: workspace:*
+        version: link:../memory/corpus
       '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../kernel
