@@ -19,6 +19,11 @@ packages:
   - 'core/runtime/rsh'
   - 'core/runtime/runtime-state'
   - 'core/runtime/interaction'
+  - 'core/runtime/capability-manifest'
+  - 'core/runtime/drivers/filesystem'
+  - 'core/runtime/drivers/local-shell'
+  - 'core/runtime/drivers/search'
+  - 'core/runtime/drivers/document'
   # Core — intelligence
   - 'core/intelligence/planner'
   - 'core/intelligence/reasoning'
