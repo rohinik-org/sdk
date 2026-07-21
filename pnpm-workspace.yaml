@@ -24,6 +24,11 @@ packages:
   - 'core/runtime/drivers/local-shell'
   - 'core/runtime/drivers/search'
   - 'core/runtime/drivers/document'
+  - 'core/runtime/drivers/knowledge'
+  - 'core/runtime/knowledge'
+  - 'core/runtime/knowledge/entity-extractor'
+  - 'core/runtime/knowledge/skill-classifier'
+  - 'core/runtime/knowledge/reasoning-primitives'
   # Core — intelligence
   - 'core/intelligence/planner'
   - 'core/intelligence/reasoning'
