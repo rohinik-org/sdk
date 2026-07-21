@@ -608,6 +608,12 @@ importers:
       '@rohinik-org/knowledge':
         specifier: workspace:*
         version: link:knowledge
+      '@rohinik-org/prediction-ir':
+        specifier: workspace:*
+        version: link:prediction-ir
+      '@rohinik-org/prediction-manager':
+        specifier: workspace:*
+        version: link:prediction-manager
       '@rohinik-org/skill-classifier':
         specifier: workspace:*
         version: link:knowledge/skill-classifier
@@ -1308,6 +1314,44 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
 
+  core/runtime/prediction-ir:
+    dependencies:
+      '@rohinik-org/working-context':
+        specifier: workspace:*
+        version: link:../working-context
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+
+  core/runtime/prediction-manager:
+    dependencies:
+      '@rohinik-org/context-manager':
+        specifier: workspace:*
+        version: link:../context-manager
+      '@rohinik-org/prediction-ir':
+        specifier: workspace:*
+        version: link:../prediction-ir
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
   core/runtime/rsh:
     dependencies:
       '@rohinik-org/interaction':
@@ -1360,6 +1404,9 @@ importers:
       '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../../kernel
+      '@rohinik-org/prediction-ir':
+        specifier: workspace:*
+        version: link:../prediction-ir
       '@rohinik-org/runtime':
         specifier: workspace:*
         version: link:..

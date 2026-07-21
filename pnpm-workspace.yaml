@@ -34,6 +34,10 @@ packages:
   - 'core/runtime/acquisition/source-filesystem'
   - 'core/runtime/acquisition/source-github'
   - 'core/runtime/drivers/acquisition'
+  - 'core/runtime/working-context'
+  - 'core/runtime/context-manager'
+  - 'core/runtime/prediction-ir'
+  - 'core/runtime/prediction-manager'
   # Core — intelligence
   - 'core/intelligence/planner'
   - 'core/intelligence/reasoning'
