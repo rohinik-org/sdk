@@ -39,6 +39,8 @@ packages:
   - 'core/runtime/scoring'
   - 'core/runtime/prediction-ir'
   - 'core/runtime/prediction-manager'
+  - 'core/runtime/execution-ir'
+  - 'core/runtime/execution'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
