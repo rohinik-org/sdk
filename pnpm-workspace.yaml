@@ -29,6 +29,11 @@ packages:
   - 'core/runtime/knowledge/entity-extractor'
   - 'core/runtime/knowledge/skill-classifier'
   - 'core/runtime/knowledge/reasoning-primitives'
+  - 'core/runtime/acquisition'
+  - 'core/runtime/acquisition/capability-registry'
+  - 'core/runtime/acquisition/source-filesystem'
+  - 'core/runtime/acquisition/source-github'
+  - 'core/runtime/drivers/acquisition'
   # Core — intelligence
   - 'core/intelligence/planner'
   - 'core/intelligence/reasoning'

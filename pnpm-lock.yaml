@@ -572,18 +572,27 @@ importers:
 
   core/runtime:
     dependencies:
+      '@rohinik-org/capability-acquisition':
+        specifier: workspace:*
+        version: link:acquisition
       '@rohinik-org/capability-core':
         specifier: workspace:*
         version: link:../kernel/capability-core
       '@rohinik-org/capability-manifest':
         specifier: workspace:*
         version: link:capability-manifest
+      '@rohinik-org/capability-registry':
+        specifier: workspace:*
+        version: link:acquisition/capability-registry
       '@rohinik-org/compiler':
         specifier: workspace:*
         version: link:../../compiler
       '@rohinik-org/corpus':
         specifier: workspace:*
         version: link:../memory/corpus
+      '@rohinik-org/driver-acquisition':
+        specifier: workspace:*
+        version: link:drivers/acquisition
       '@rohinik-org/entity-extractor':
         specifier: workspace:*
         version: link:knowledge/entity-extractor
@@ -596,6 +605,9 @@ importers:
       '@rohinik-org/skill-classifier':
         specifier: workspace:*
         version: link:knowledge/skill-classifier
+      '@rohinik-org/source-filesystem':
+        specifier: workspace:*
+        version: link:acquisition/source-filesystem
       js-yaml:
         specifier: ^4.1.0
         version: 4.3.0
@@ -615,6 +627,91 @@ importers:
       '@types/uuid':
         specifier: ^10.0.0
         version: 10.0.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
+  core/runtime/acquisition:
+    dependencies:
+      '@rohinik-org/capability-manifest':
+        specifier: workspace:*
+        version: link:../capability-manifest
+      '@rohinik-org/capability-registry':
+        specifier: workspace:*
+        version: link:capability-registry
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
+  core/runtime/acquisition/capability-registry:
+    dependencies:
+      '@rohinik-org/capability-manifest':
+        specifier: workspace:*
+        version: link:../../capability-manifest
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
+  core/runtime/acquisition/source-filesystem:
+    dependencies:
+      '@rohinik-org/capability-acquisition':
+        specifier: workspace:*
+        version: link:..
+      '@rohinik-org/capability-manifest':
+        specifier: workspace:*
+        version: link:../../capability-manifest
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
+  core/runtime/acquisition/source-github:
+    dependencies:
+      '@rohinik-org/capability-acquisition':
+        specifier: workspace:*
+        version: link:..
+      '@rohinik-org/capability-manifest':
+        specifier: workspace:*
+        version: link:../../capability-manifest
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
       tsup:
         specifier: '*'
         version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
@@ -851,6 +948,28 @@ importers:
       vitest:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
+  core/runtime/drivers/acquisition:
+    dependencies:
+      '@rohinik-org/capability-acquisition':
+        specifier: workspace:*
+        version: link:../../acquisition
+      '@rohinik-org/capability-manifest':
+        specifier: workspace:*
+        version: link:../../capability-manifest
+      '@rohinik-org/capability-registry':
+        specifier: workspace:*
+        version: link:../../acquisition/capability-registry
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
 
   core/runtime/drivers/document:
     dependencies:
