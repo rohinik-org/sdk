@@ -42,10 +42,12 @@ packages:
   - 'core/runtime/execution-ir'
   - 'core/runtime/execution'
   - 'core/runtime/evaluation-ir'
+  - 'core/runtime/experience-ir'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
   - 'core/intelligence/evaluation'
+  - 'core/intelligence/experience'
   - 'core/intelligence/reasoning'
   - 'core/intelligence/reflection'
   - 'core/intelligence/autonomy'

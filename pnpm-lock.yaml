@@ -271,6 +271,31 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
 
+  core/intelligence/experience:
+    dependencies:
+      '@rohinik-org/evaluation-ir':
+        specifier: workspace:*
+        version: link:../../runtime/evaluation-ir
+      '@rohinik-org/experience-ir':
+        specifier: workspace:*
+        version: link:../../runtime/experience-ir
+      '@rohinik-org/kernel':
+        specifier: workspace:*
+        version: link:../../kernel
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
+
   core/intelligence/multi-agent:
     dependencies:
       '@rohinik-org/compiler':
@@ -679,6 +704,12 @@ importers:
       '@rohinik-org/execution-ir':
         specifier: workspace:*
         version: link:execution-ir
+      '@rohinik-org/experience':
+        specifier: workspace:*
+        version: link:../intelligence/experience
+      '@rohinik-org/experience-ir':
+        specifier: workspace:*
+        version: link:experience-ir
       '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../kernel
@@ -1308,6 +1339,34 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
 
+  core/runtime/experience-ir:
+    dependencies:
+      '@rohinik-org/evaluation-ir':
+        specifier: workspace:*
+        version: link:../evaluation-ir
+      '@rohinik-org/execution-ir':
+        specifier: workspace:*
+        version: link:../execution-ir
+      '@rohinik-org/planner-ir':
+        specifier: workspace:*
+        version: link:../../intelligence/planner-ir
+      '@rohinik-org/prediction-ir':
+        specifier: workspace:*
+        version: link:../prediction-ir
+      '@rohinik-org/working-context':
+        specifier: workspace:*
+        version: link:../working-context
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+
   core/runtime/interaction:
     dependencies:
       '@rohinik-org/runtime-state':
@@ -1581,6 +1640,9 @@ importers:
       '@rohinik-org/execution-ir':
         specifier: workspace:*
         version: link:../execution-ir
+      '@rohinik-org/experience-ir':
+        specifier: workspace:*
+        version: link:../experience-ir
       '@rohinik-org/kernel':
         specifier: workspace:*
         version: link:../../kernel
