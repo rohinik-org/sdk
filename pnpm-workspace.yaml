@@ -43,11 +43,13 @@ packages:
   - 'core/runtime/execution'
   - 'core/runtime/evaluation-ir'
   - 'core/runtime/experience-ir'
+  - 'core/runtime/experience-store-ir'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
   - 'core/intelligence/evaluation'
   - 'core/intelligence/experience'
+  - 'core/intelligence/experience-store'
   - 'core/intelligence/reasoning'
   - 'core/intelligence/reflection'
   - 'core/intelligence/autonomy'
@@ -91,4 +93,5 @@ packages:
   - 'apps/*'
   - 'tools/benchmark/reference-runner-node'
 allowBuilds:
+  better-sqlite3: true
   esbuild: true
