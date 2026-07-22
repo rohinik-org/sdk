@@ -41,9 +41,11 @@ packages:
   - 'core/runtime/prediction-manager'
   - 'core/runtime/execution-ir'
   - 'core/runtime/execution'
+  - 'core/runtime/evaluation-ir'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
+  - 'core/intelligence/evaluation'
   - 'core/intelligence/reasoning'
   - 'core/intelligence/reflection'
   - 'core/intelligence/autonomy'
