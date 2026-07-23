@@ -45,6 +45,7 @@ packages:
   - 'core/runtime/experience-ir'
   - 'core/runtime/experience-store-ir'
   - 'core/runtime/experience-query-ir'
+  - 'core/runtime/context-quality-ir'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
@@ -52,6 +53,7 @@ packages:
   - 'core/intelligence/experience'
   - 'core/intelligence/experience-query'
   - 'core/intelligence/experience-store'
+  - 'core/intelligence/context-quality'
   - 'core/intelligence/reasoning'
   - 'core/intelligence/reflection'
   - 'core/intelligence/autonomy'
