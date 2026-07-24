@@ -48,6 +48,7 @@ packages:
   - 'core/runtime/context-quality-ir'
   - 'core/runtime/capability-ir'
   - 'core/runtime/capability-contracts-ir'
+  - 'core/runtime/capability-binding-ir'
   - 'core/runtime/capability-contracts'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
