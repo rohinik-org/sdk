@@ -46,6 +46,9 @@ packages:
   - 'core/runtime/experience-store-ir'
   - 'core/runtime/experience-query-ir'
   - 'core/runtime/context-quality-ir'
+  - 'core/runtime/capability-ir'
+  - 'core/runtime/capability-contracts-ir'
+  - 'core/runtime/capability-contracts'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
