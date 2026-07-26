@@ -51,6 +51,9 @@ packages:
   - 'core/runtime/capability-binding-ir'
   - 'core/runtime/capability-binding'
   - 'core/runtime/capability-contracts'
+  - 'core/runtime/application-manifest-ir'
+  - 'core/runtime/application-manifest'
+  - 'core/runtime/application-manifest-node-scanner'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
