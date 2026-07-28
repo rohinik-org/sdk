@@ -56,6 +56,10 @@ packages:
   - 'core/runtime/application-manifest-node-scanner'
   - 'core/runtime/resolution-graph-ir'
   - 'core/runtime/resolution-graph'
+  - 'core/runtime/provisioning-ir'
+  - 'core/runtime/provisioning-runtime'
+  - 'core/runtime/package-installer'
+  - 'core/runtime/dependency-installer'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
