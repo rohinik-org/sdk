@@ -20,6 +20,9 @@ importers:
 
   cli:
     dependencies:
+      '@rohinik-org/lockfile':
+        specifier: workspace:*
+        version: link:../core/runtime/lockfile
       '@rohinik-org/marketplace-sdk':
         specifier: workspace:*
         version: link:../sdk/typescript/marketplace-sdk
@@ -2001,6 +2004,12 @@ importers:
 
   core/runtime/provisioning-runtime:
     dependencies:
+      '@rohinik-org/lockfile':
+        specifier: workspace:*
+        version: link:../lockfile
+      '@rohinik-org/lockfile-ir':
+        specifier: workspace:*
+        version: link:../lockfile-ir
       '@rohinik-org/provisioning-ir':
         specifier: workspace:*
         version: link:../provisioning-ir
