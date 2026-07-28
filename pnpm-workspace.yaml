@@ -60,6 +60,7 @@ packages:
   - 'core/runtime/provisioning-runtime'
   - 'core/runtime/package-installer'
   - 'core/runtime/dependency-installer'
+  - 'core/runtime/lockfile-ir'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
