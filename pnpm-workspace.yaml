@@ -57,6 +57,7 @@ packages:
   - 'core/runtime/resolution-graph-ir'
   - 'core/runtime/resolution-graph'
   - 'core/runtime/package-trust-ir'
+  - 'core/runtime/package-acquisition'
   - 'core/runtime/provisioning-ir'
   - 'core/runtime/provisioning-runtime'
   - 'core/runtime/package-installer'

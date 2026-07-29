@@ -1926,6 +1926,22 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
 
+  core/runtime/package-acquisition:
+    dependencies:
+      '@rohinik-org/package-trust-ir':
+        specifier: workspace:*
+        version: link:../package-trust-ir
+    devDependencies:
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
   core/runtime/package-installer:
     dependencies:
       '@rohinik-org/provisioning-ir':
@@ -1943,6 +1959,18 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^2.0.0
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
+  core/runtime/package-trust-ir:
+    devDependencies:
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
         version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
 
   core/runtime/prediction-ir:
