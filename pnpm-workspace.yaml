@@ -58,6 +58,7 @@ packages:
   - 'core/runtime/resolution-graph'
   - 'core/runtime/package-trust-ir'
   - 'core/runtime/package-trust'
+  - 'core/runtime/package-revocation'
   - 'core/runtime/package-acquisition'
   - 'core/runtime/package-integrity'
   - 'core/runtime/publisher-trust'
