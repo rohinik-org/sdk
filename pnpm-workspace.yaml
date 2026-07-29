@@ -60,6 +60,7 @@ packages:
   - 'core/runtime/package-trust'
   - 'core/runtime/package-acquisition'
   - 'core/runtime/package-integrity'
+  - 'core/runtime/publisher-trust'
   - 'core/runtime/provisioning-ir'
   - 'core/runtime/provisioning-runtime'
   - 'core/runtime/package-installer'
