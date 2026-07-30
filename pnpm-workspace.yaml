@@ -67,6 +67,7 @@ packages:
   - 'core/runtime/package-vulnerability'
   - 'core/runtime/package-quarantine'
   - 'core/runtime/package-trust-decision'
+  - 'core/runtime/package-trust-repository'
   - 'core/runtime/provisioning-ir'
   - 'core/runtime/provisioning-runtime'
   - 'core/runtime/package-installer'
