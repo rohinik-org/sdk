@@ -83,6 +83,7 @@ packages:
   - 'core/runtime/dependency-installer'
   - 'core/runtime/lockfile-ir'
   - 'core/runtime/lockfile'
+  - 'core/runtime/stage-9k-integration'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
