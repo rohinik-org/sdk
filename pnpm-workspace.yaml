@@ -68,6 +68,8 @@ packages:
   - 'core/runtime/package-quarantine'
   - 'core/runtime/package-trust-decision'
   - 'core/runtime/package-trust-repository'
+  - 'core/runtime/package-trust-reevaluation'
+  - 'core/runtime/package-provisioning-authorization'
   - 'core/runtime/provisioning-ir'
   - 'core/runtime/provisioning-runtime'
   - 'core/runtime/package-installer'
