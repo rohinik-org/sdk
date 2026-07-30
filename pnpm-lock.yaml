@@ -2101,6 +2101,37 @@ importers:
         specifier: '*'
         version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
 
+  core/runtime/package-trust-integration:
+    dependencies:
+      '@rohinik-org/package-provisioning-authorization':
+        specifier: workspace:*
+        version: link:../package-provisioning-authorization
+      '@rohinik-org/package-quarantine':
+        specifier: workspace:*
+        version: link:../package-quarantine
+      '@rohinik-org/package-trust-decision':
+        specifier: workspace:*
+        version: link:../package-trust-decision
+      '@rohinik-org/package-trust-ir':
+        specifier: workspace:*
+        version: link:../package-trust-ir
+      '@rohinik-org/package-trust-reevaluation':
+        specifier: workspace:*
+        version: link:../package-trust-reevaluation
+      '@rohinik-org/package-trust-repository':
+        specifier: workspace:*
+        version: link:../package-trust-repository
+    devDependencies:
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
   core/runtime/package-trust-ir:
     devDependencies:
       tsup:

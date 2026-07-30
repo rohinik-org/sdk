@@ -70,6 +70,7 @@ packages:
   - 'core/runtime/package-trust-repository'
   - 'core/runtime/package-trust-reevaluation'
   - 'core/runtime/package-provisioning-authorization'
+  - 'core/runtime/package-trust-integration'
   - 'core/runtime/provisioning-ir'
   - 'core/runtime/provisioning-runtime'
   - 'core/runtime/package-installer'
