@@ -56,6 +56,7 @@ packages:
   - 'core/runtime/package-manifest'
   - 'core/runtime/package-sdk'
   - 'core/runtime/package-runtime-adapter'
+  - 'core/runtime/package-builder'
   - 'core/runtime/application-manifest'
   - 'core/runtime/application-manifest-node-scanner'
   - 'core/runtime/resolution-graph-ir'
