@@ -52,6 +52,7 @@ packages:
   - 'core/runtime/capability-binding'
   - 'core/runtime/capability-contracts'
   - 'core/runtime/application-manifest-ir'
+  - 'core/runtime/package-manifest-ir'
   - 'core/runtime/application-manifest'
   - 'core/runtime/application-manifest-node-scanner'
   - 'core/runtime/resolution-graph-ir'
