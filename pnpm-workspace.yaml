@@ -65,6 +65,7 @@ packages:
   - 'core/runtime/publisher-trust'
   - 'core/runtime/package-provenance'
   - 'core/runtime/package-vulnerability'
+  - 'core/runtime/package-quarantine'
   - 'core/runtime/package-trust-decision'
   - 'core/runtime/provisioning-ir'
   - 'core/runtime/provisioning-runtime'
