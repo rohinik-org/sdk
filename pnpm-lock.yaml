@@ -783,9 +783,6 @@ importers:
       '@rohinik-org/context-manager':
         specifier: workspace:*
         version: link:context-manager
-      '@rohinik-org/context-quality':
-        specifier: workspace:*
-        version: link:../intelligence/context-quality
       '@rohinik-org/context-quality-ir':
         specifier: workspace:*
         version: link:context-quality-ir
