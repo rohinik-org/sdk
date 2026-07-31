@@ -9,3 +9,4 @@ benchmarks/results/
 start.mjs
 rohinik.yaml
 .worktrees
+.playwright-mcp/
