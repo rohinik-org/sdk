@@ -2703,6 +2703,40 @@ importers:
         specifier: '*'
         version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
 
+  packages/reference/memory-reference:
+    dependencies:
+      '@rohinik-org/package-conformance':
+        specifier: workspace:*
+        version: link:../../../core/runtime/package-conformance
+      '@rohinik-org/package-manifest-ir':
+        specifier: workspace:*
+        version: link:../../../core/runtime/package-manifest-ir
+      '@rohinik-org/reference-test-harness':
+        specifier: workspace:*
+        version: link:../reference-test-harness
+      '@rohinik-org/storage-local':
+        specifier: workspace:*
+        version: link:../storage-local
+      '@rohinik-org/vector-memory':
+        specifier: workspace:*
+        version: link:../vector-memory
+      better-sqlite3:
+        specifier: '*'
+        version: 9.6.0
+    devDependencies:
+      '@types/better-sqlite3':
+        specifier: '*'
+        version: 7.6.13
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
   packages/reference/observability-reference:
     dependencies:
       '@rohinik-org/package-conformance':
