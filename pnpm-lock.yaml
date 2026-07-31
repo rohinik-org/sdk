@@ -306,6 +306,28 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
 
+  core/intelligence/execution-evidence:
+    dependencies:
+      '@rohinik-org/execution-evidence-ir':
+        specifier: workspace:*
+        version: link:../../runtime/execution-evidence-ir
+    devDependencies:
+      '@rohinik-org/execution-evidence-store-memory':
+        specifier: workspace:*
+        version: link:../../runtime/execution-evidence-store-memory
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
   core/intelligence/experience:
     dependencies:
       '@rohinik-org/evaluation-ir':
@@ -804,6 +826,9 @@ importers:
       '@rohinik-org/execution':
         specifier: workspace:*
         version: link:execution
+      '@rohinik-org/execution-evidence-ir':
+        specifier: workspace:*
+        version: link:execution-evidence-ir
       '@rohinik-org/execution-ir':
         specifier: workspace:*
         version: link:execution-ir
@@ -1612,6 +1637,43 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
 
+  core/runtime/execution-evidence-ir:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
+  core/runtime/execution-evidence-store-memory:
+    dependencies:
+      '@rohinik-org/execution-evidence-ir':
+        specifier: workspace:*
+        version: link:../execution-evidence-ir
+    devDependencies:
+      '@rohinik-org/execution-evidence':
+        specifier: workspace:*
+        version: link:../../intelligence/execution-evidence
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
   core/runtime/execution-ir:
     dependencies:
       '@rohinik-org/kernel':
@@ -1872,6 +1934,21 @@ importers:
       typescript:
         specifier: ^5.5.0
         version: 5.9.3
+
+  core/runtime/ml-ir:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
 
   core/runtime/networking/host-discovery:
     dependencies:
