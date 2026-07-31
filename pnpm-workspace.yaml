@@ -84,6 +84,7 @@ packages:
   - 'core/runtime/lockfile-ir'
   - 'core/runtime/lockfile'
   - 'core/runtime/stage-9k-integration'
+  - 'packages/reference/*'
   # Core — intelligence
   - 'core/intelligence/planner-ir'
   - 'core/intelligence/planner'
