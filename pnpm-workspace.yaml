@@ -46,6 +46,7 @@ packages:
   - 'core/runtime/experience-store-ir'
   - 'core/runtime/experience-query-ir'
   - 'core/runtime/context-quality-ir'
+  - 'core/runtime/execution-evidence-ir'
   - 'core/runtime/capability-ir'
   - 'core/runtime/capability-contracts-ir'
   - 'core/runtime/capability-binding-ir'
