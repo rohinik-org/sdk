@@ -2634,6 +2634,34 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.0)(jsdom@29.1.1)
 
+  examples/knowledge-assistant:
+    dependencies:
+      '@rohinik-org/ai-mock':
+        specifier: workspace:*
+        version: link:../../packages/reference/ai-mock
+      '@rohinik-org/document-core':
+        specifier: workspace:*
+        version: link:../../packages/reference/document-core
+      '@rohinik-org/memory-reference':
+        specifier: workspace:*
+        version: link:../../packages/reference/memory-reference
+      '@rohinik-org/observability-reference':
+        specifier: workspace:*
+        version: link:../../packages/reference/observability-reference
+      '@rohinik-org/package-manifest-ir':
+        specifier: workspace:*
+        version: link:../../core/runtime/package-manifest-ir
+      '@rohinik-org/vector-memory':
+        specifier: workspace:*
+        version: link:../../packages/reference/vector-memory
+    devDependencies:
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
   packages/reference/ai-mock:
     dependencies:
       '@rohinik-org/package-manifest-ir':
@@ -2883,6 +2911,46 @@ importers:
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.0
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 2.1.9(@types/node@22.20.0)(jsdom@29.1.1)
+
+  packages/reference/stage-9l-integration:
+    dependencies:
+      '@rohinik-org/ai-mock':
+        specifier: workspace:*
+        version: link:../ai-mock
+      '@rohinik-org/document-core':
+        specifier: workspace:*
+        version: link:../document-core
+      '@rohinik-org/foundation-package-set':
+        specifier: workspace:*
+        version: link:../foundation-package-set
+      '@rohinik-org/memory-reference':
+        specifier: workspace:*
+        version: link:../memory-reference
+      '@rohinik-org/observability-reference':
+        specifier: workspace:*
+        version: link:../observability-reference
+      '@rohinik-org/package-conformance':
+        specifier: workspace:*
+        version: link:../../../core/runtime/package-conformance
+      '@rohinik-org/package-manifest-ir':
+        specifier: workspace:*
+        version: link:../../../core/runtime/package-manifest-ir
+      '@rohinik-org/reference-test-harness':
+        specifier: workspace:*
+        version: link:../reference-test-harness
+      '@rohinik-org/vector-memory':
+        specifier: workspace:*
+        version: link:../vector-memory
+    devDependencies:
       tsup:
         specifier: '*'
         version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)

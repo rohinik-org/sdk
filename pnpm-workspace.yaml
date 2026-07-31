@@ -132,6 +132,8 @@ packages:
   - 'tools/cursor/asset-frontend'
   # Registry
   - 'registry/packs/starter-pack'
+  # Examples
+  - 'examples/knowledge-assistant'
   # Legacy (existing tooling)
   - 'apps/*'
   - 'tools/benchmark/reference-runner-node'
