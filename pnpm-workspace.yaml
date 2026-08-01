@@ -49,6 +49,7 @@ packages:
   - 'core/runtime/execution-evidence-ir'
   - 'core/runtime/execution-evidence-store-memory'
   - 'core/runtime/ml-ir'
+  - 'core/runtime/ml-dataset'
   - 'core/runtime/capability-ir'
   - 'core/runtime/capability-contracts-ir'
   - 'core/runtime/capability-binding-ir'
