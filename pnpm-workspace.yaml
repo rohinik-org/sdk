@@ -50,6 +50,7 @@ packages:
   - 'core/runtime/execution-evidence-store-memory'
   - 'core/runtime/ml-ir'
   - 'core/runtime/ml-dataset'
+  - 'core/runtime/ml-training'
   - 'core/runtime/capability-ir'
   - 'core/runtime/capability-contracts-ir'
   - 'core/runtime/capability-binding-ir'
