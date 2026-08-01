@@ -52,6 +52,7 @@ packages:
   - 'core/runtime/ml-dataset'
   - 'core/runtime/ml-training'
   - 'core/runtime/ml-evaluation'
+  - 'core/runtime/ml-deployment'
   - 'core/runtime/capability-ir'
   - 'core/runtime/capability-contracts-ir'
   - 'core/runtime/capability-binding-ir'
