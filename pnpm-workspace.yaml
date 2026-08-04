@@ -55,6 +55,7 @@ packages:
   - 'core/runtime/ml-deployment'
   - 'core/runtime/ml-operations'
   - 'core/runtime/governed-learning'
+  - 'core/runtime/runtime-federation'
   - 'core/runtime/capability-ir'
   - 'core/runtime/capability-contracts-ir'
   - 'core/runtime/capability-binding-ir'
