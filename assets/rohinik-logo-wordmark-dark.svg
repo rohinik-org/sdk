@@ -1,0 +1,11 @@
+<svg width="280" height="72" viewBox="0 0 280 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: light colors for dark backgrounds -->
+  <svg x="0" y="6" width="60" height="60" viewBox="0 0 128 128">
+    <path d="M64,96 L108,74 L64,52 L20,74 Z" fill="#8DD5FE" fill-opacity="0.4"/>
+    <path d="M64,74 L108,52 L64,30 L20,52 Z" fill="#8DD5FE" fill-opacity="0.7"/>
+    <path d="M64,52 L86,41 L64,30 L42,41 Z" fill="#10B981"/>
+    <line x1="64" y1="30" x2="64" y2="96" stroke="#8DD5FE" stroke-width="6" stroke-dasharray="4 4"/>
+  </svg>
+  <!-- Wordmark: light for dark backgrounds -->
+  <text x="72" y="44" font-family="'Hanken Grotesk','Inter','IBM Plex Sans',-apple-system,sans-serif" font-weight="700" font-size="26" letter-spacing="4" fill="#EFF1F3">ROHINIK</text>
+</svg>
