@@ -1,27 +1,14 @@
-export interface AdapterConfig {
-  readonly endpoint?: string
-  readonly credentials?: Record<string, string>
-  readonly options?: Record<string, unknown>
-}
+// Re-export canonical adapter contract types from @rohinik-org/adapter-ir
+export type {
+  AdapterConfig,
+  RawDiscoveryModel,
+  AdapterValidationResult,
+  ExecutionBinding,
+  InstallSource,
+  CapabilityAdapter,
+} from '@rohinik-org/adapter-ir'
 
-export interface RawDiscoveryModel {
-  readonly protocol: string
-  readonly items: readonly unknown[]
-  readonly metadata: Record<string, unknown>
-}
-
-export interface AdapterValidationResult {
-  readonly valid: boolean
-  readonly errors: readonly string[]
-  readonly warnings: readonly string[]
-}
-
-export interface ExecutionBinding {
-  readonly adapterId: string
-  readonly capabilityId: string
-  invoke(input: unknown): Promise<unknown>
-}
-
+// SDK-owned authoring type — not in adapter-ir
 export interface AdapterManifest {
   readonly schemaVersion: string
   readonly id: string
@@ -40,17 +27,4 @@ export interface AdapterManifest {
   readonly description: string
   readonly author?: string
   readonly license?: string
-}
-
-export interface InstallSource {
-  readonly scheme: string
-  readonly location: string
-}
-
-export interface CapabilityAdapter {
-  readonly id: string
-  readonly protocol: string
-  readonly version: string
-  discover(config: AdapterConfig): Promise<RawDiscoveryModel>
-  validate(raw: RawDiscoveryModel): AdapterValidationResult
 }

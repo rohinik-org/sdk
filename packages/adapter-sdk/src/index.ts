@@ -1,15 +1,20 @@
+// Adapter authoring contracts (canonical source: @rohinik-org/adapter-ir)
 export type {
-  CapabilityAdapter,
   AdapterConfig,
   RawDiscoveryModel,
   AdapterValidationResult,
   ExecutionBinding,
-  AdapterManifest,
   InstallSource,
+  CapabilityAdapter,
 } from './types.js'
-export const ADAPTER_SDK_VERSION = '0.1.0'
-export { DescriptorBuilder } from './descriptor-builder.js'
-export { CapabilityCompiler } from './capability-compiler.js'
-export { RegistrationPipeline } from './registration-pipeline.js'
-export { CapabilityCatalog } from './catalog.js'
-export { InstallManager } from './install-manager.js'
+
+// SDK-owned authoring types
+export type { AdapterManifest } from './types.js'
+
+// Descriptor builder (pure declarative authoring — no runtime operations)
+export { AdapterDescriptorBuilder, InvalidDiscoveryItemError } from './adapter-descriptor-builder.js'
+export type { DescriptorBuildContext } from './adapter-descriptor-builder.js'
+
+// Re-export canonical interchange IR types (source: @rohinik-org/compiler)
+// ponytail: transitional — replace @rohinik-org/compiler with @rohinik-org/compiler-ir when RS-1 splits that package
+export type { CapabilityDescriptorIR, CapabilityDefinition, SemanticCapabilityID } from '@rohinik-org/compiler'
