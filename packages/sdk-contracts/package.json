@@ -1,7 +1,8 @@
 {
-  "name": "@rohinik-org/asset-sdk",
-  "version": "0.1.0",
+  "name": "@rohinik-org/sdk-contracts",
+  "version": "0.15.0",
   "type": "module",
+  "description": "Rohinik SDK — authoring contracts and matcher infrastructure for adapter and asset authors",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -13,7 +14,6 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsup": "*",

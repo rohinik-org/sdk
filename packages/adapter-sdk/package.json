@@ -13,11 +13,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "@rohinik-org/compiler": "workspace:*",
-    "@rohinik-org/foundation": "workspace:*",
-    "@rohinik-org/kernel": "workspace:*"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsup": "*",
