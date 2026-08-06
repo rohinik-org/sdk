@@ -1,0 +1,26 @@
+{
+  "name": "@rohinik-org/client",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Rohinik async execution client — @rohinik-org/execution-protocol-v1 HTTP transport",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@rohinik-org/execution-protocol-v1": "file:./vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "*",
+    "typescript": "*",
+    "vitest": "*"
+  }
+}
