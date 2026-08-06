@@ -1,7 +1,8 @@
 {
   "name": "@rohinik-org/asset-sdk",
-  "version": "0.1.0",
+  "version": "0.15.0",
   "type": "module",
+  "description": "Rohinik SDK — semantic asset frontend contracts and descriptor builders",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -13,7 +14,10 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@rohinik-org/adapter-sdk": "workspace:*",
+    "@rohinik-org/compiler": "link:C:/Users/C5182688/Documents/rs1/compiler"
+  },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsup": "*",

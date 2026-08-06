@@ -57,7 +57,7 @@ describe('AssetDescriptorBuilder', () => {
       '@rohinik-org/claude-asset-frontend', '1.0.0', 'claude', 's', 'snap',
     )
     const ir = builder.build(RAW)
-    const cap = ir.capabilities[0]! as Record<string, unknown>
+    const cap = ir.capabilities[0]! as unknown as Record<string, unknown>
     expect(cap['content']).toBeUndefined()
   })
 
