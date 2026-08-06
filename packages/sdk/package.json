@@ -15,7 +15,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@rohinik-org/runtime-client": "link:C:/Users/C5182688/Documents/rs1/core/runtime/client"
+    "@rohinik-org/runtime-client": "link:../../../../../../../Documents/rs1/core/runtime/client"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

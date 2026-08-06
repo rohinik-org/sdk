@@ -1,4 +1,3 @@
-export const ASSET_SDK_VERSION = '0.15.0'
 export type {
   SemanticFrontend, DetectionResult, DetectionMethod,
   RawAssetModel, RawAssetItem, AssetValidationResult,

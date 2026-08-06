@@ -2,6 +2,21 @@ import { createHash } from 'node:crypto'
 import type { CapabilityDescriptorIR, CapabilityDefinition } from '@rohinik-org/compiler'
 import type { RawAssetModel, RawAssetItem } from './types.js'
 
+function canonicalJson(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`
+  if (value !== null && typeof value === 'object') {
+    const entries = Object.entries(value as Record<string, unknown>)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, item]) => `${JSON.stringify(key)}:${canonicalJson(item)}`)
+    return `{${entries.join(',')}}`
+  }
+  return JSON.stringify(value)
+}
+
+function sha256(value: unknown): string {
+  return createHash('sha256').update(canonicalJson(value)).digest('hex')
+}
+
 export class AssetDescriptorBuilder {
   constructor(
     private readonly frontendId: string,
@@ -11,43 +26,47 @@ export class AssetDescriptorBuilder {
     private readonly systemSnapshotId: string,
   ) {}
 
-  build(raw: RawAssetModel): CapabilityDescriptorIR {
+  build(raw: RawAssetModel, capturedAt: string): CapabilityDescriptorIR {
+    if (!capturedAt.trim()) {
+      throw new Error('capturedAt is required')
+    }
+
     const capabilities = raw.items.map(item => this.toCapabilityDefinition(item))
+    const discoveryHash = sha256(raw.items.map(i => ({ id: i.id, name: i.name })))
 
-    const discoveryHash = createHash('sha256')
-      .update(JSON.stringify(raw.items.map(i => ({ id: i.id, name: i.name }))))
-      .digest('hex')
-
-    const body = { origin: { protocol: 'asset', adapterId: this.frontendId, discoveryHash }, capabilities }
-    const checksum = createHash('sha256').update(JSON.stringify(body)).digest('hex')
-    const now = new Date().toISOString()
-
-    return {
+    const artifactWithoutIntegrity = {
       meta: {
-        artifactId: checksum,
         schemaVersion: '1.0',
         kind: 'CapabilityDescriptorIR',
-        createdAt: now,
+        createdAt: capturedAt,
         producer: `${this.frontendId}@${this.frontendVersion}`,
+        artifactId: '',
       },
       provenance: {
         systemSnapshotId: this.systemSnapshotId,
         parentArtifacts: [],
         sessionId: this.sessionId,
       },
-      integrity: { checksum },
-      lifecycle: { state: 'ACTIVE' },
+      lifecycle: { state: 'ACTIVE' as const },
       origin: {
         protocol: 'asset',
         adapterId: this.frontendId,
         adapterVersion: this.frontendVersion,
         protocolVersion: '1.0',
         discoveryHash,
-        capturedAt: now,
+        capturedAt,
         ...(raw.metadata['sourceFile'] ? { endpoint: String(raw.metadata['sourceFile']) } : {}),
       },
       capabilities,
     }
+
+    const checksum = sha256(artifactWithoutIntegrity)
+
+    return {
+      ...artifactWithoutIntegrity,
+      meta: { ...artifactWithoutIntegrity.meta, artifactId: checksum },
+      integrity: { checksum },
+    } as unknown as CapabilityDescriptorIR
   }
 
   private toCapabilityDefinition(item: RawAssetItem): CapabilityDefinition {

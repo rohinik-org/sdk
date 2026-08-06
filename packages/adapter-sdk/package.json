@@ -15,8 +15,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@rohinik-org/adapter-ir": "link:C:/Users/C5182688/Documents/rs1/core/runtime/adapter-ir",
-    "@rohinik-org/compiler": "link:C:/Users/C5182688/Documents/rs1/compiler",
+    "@rohinik-org/adapter-ir": "link:../../../../../../../Documents/rs1/core/runtime/adapter-ir",
+    "@rohinik-org/compiler": "link:../../../../../../../Documents/rs1/compiler",
     "@rohinik-org/sdk-contracts": "workspace:*"
   },
   "devDependencies": {

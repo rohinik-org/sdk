@@ -18,12 +18,14 @@ const RAW: RawAssetModel = {
   metadata: { sourceFile: '.claude/skills/autocad.md' },
 }
 
+const CAPTURED_AT = '2026-08-06T00:00:00.000Z'
+
 describe('AssetDescriptorBuilder', () => {
   it('builds a valid CapabilityDescriptorIR from RawAssetModel', () => {
     const builder = new AssetDescriptorBuilder(
       '@rohinik-org/claude-asset-frontend', '1.0.0', 'claude', 'session-1', 'snap-1',
     )
-    const ir = builder.build(RAW)
+    const ir = builder.build(RAW, CAPTURED_AT)
     expect(ir.meta.kind).toBe('CapabilityDescriptorIR')
     expect(ir.origin.protocol).toBe('asset')
     expect(ir.origin.adapterId).toBe('@rohinik-org/claude-asset-frontend')
@@ -34,7 +36,7 @@ describe('AssetDescriptorBuilder', () => {
     const builder = new AssetDescriptorBuilder(
       '@rohinik-org/claude-asset-frontend', '1.0.0', 'claude', 'session-1', 'snap-1',
     )
-    const ir = builder.build(RAW)
+    const ir = builder.build(RAW, CAPTURED_AT)
     const cap = ir.capabilities[0]!
     expect(cap.id).toBe('autocad-draw')
     expect(cap.name).toBe('AutoCAD Draw')
@@ -45,7 +47,7 @@ describe('AssetDescriptorBuilder', () => {
     const builder = new AssetDescriptorBuilder(
       '@rohinik-org/claude-asset-frontend', '1.0.0', 'claude', 's', 'snap',
     )
-    const ir = builder.build(RAW)
+    const ir = builder.build(RAW, CAPTURED_AT)
     const cap = ir.capabilities[0]!
     expect(cap.examples).toContain('draw a gearbox with 12 teeth')
     expect(cap.tags).toContain('claude')
@@ -56,7 +58,7 @@ describe('AssetDescriptorBuilder', () => {
     const builder = new AssetDescriptorBuilder(
       '@rohinik-org/claude-asset-frontend', '1.0.0', 'claude', 's', 'snap',
     )
-    const ir = builder.build(RAW)
+    const ir = builder.build(RAW, CAPTURED_AT)
     const cap = ir.capabilities[0]! as unknown as Record<string, unknown>
     expect(cap['content']).toBeUndefined()
   })
@@ -70,7 +72,31 @@ describe('AssetDescriptorBuilder', () => {
       }],
     }
     const builder = new AssetDescriptorBuilder('@rohinik-org/x', '1.0.0', 'x', 's', 'snap')
-    const ir = builder.build(raw)
+    const ir = builder.build(raw, CAPTURED_AT)
     expect(ir.capabilities[0]?.inputSchema).toBeDefined()
+  })
+
+  it('is deterministic: identical input + capturedAt → identical checksum', () => {
+    const builder = new AssetDescriptorBuilder(
+      '@rohinik-org/claude-asset-frontend', '1.0.0', 'claude', 'session-1', 'snap-1',
+    )
+    const ir1 = builder.build(RAW, CAPTURED_AT)
+    const ir2 = builder.build(RAW, CAPTURED_AT)
+    expect(ir1.integrity.checksum).toBe(ir2.integrity.checksum)
+    expect(ir1.meta.artifactId).toBe(ir2.meta.artifactId)
+  })
+
+  it('different capturedAt changes the checksum', () => {
+    const builder = new AssetDescriptorBuilder(
+      '@rohinik-org/claude-asset-frontend', '1.0.0', 'claude', 'session-1', 'snap-1',
+    )
+    const ir1 = builder.build(RAW, '2026-08-06T00:00:00.000Z')
+    const ir2 = builder.build(RAW, '2026-08-06T01:00:00.000Z')
+    expect(ir1.integrity.checksum).not.toBe(ir2.integrity.checksum)
+  })
+
+  it('fail-closed: throws for empty capturedAt', () => {
+    const builder = new AssetDescriptorBuilder('@rohinik-org/x', '1.0.0', 'x', 's', 'snap')
+    expect(() => builder.build(RAW, '')).toThrow('capturedAt is required')
   })
 })

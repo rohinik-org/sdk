@@ -19,6 +19,16 @@ importers:
         version: 1.6.1(@types/node@22.20.1)
 
   packages/adapter-sdk:
+    dependencies:
+      '@rohinik-org/adapter-ir':
+        specifier: link:../../../../../../../Documents/rs1/core/runtime/adapter-ir
+        version: link:../../../../../../../Documents/rs1/core/runtime/adapter-ir
+      '@rohinik-org/compiler':
+        specifier: link:../../../../../../../Documents/rs1/compiler
+        version: link:../../../../../../../Documents/rs1/compiler
+      '@rohinik-org/sdk-contracts':
+        specifier: workspace:*
+        version: link:../sdk-contracts
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -34,6 +44,32 @@ importers:
         version: 1.6.1(@types/node@22.20.1)
 
   packages/asset-sdk:
+    dependencies:
+      '@rohinik-org/adapter-sdk':
+        specifier: workspace:*
+        version: link:../adapter-sdk
+      '@rohinik-org/compiler':
+        specifier: link:../../../../../../../Documents/rs1/compiler
+        version: link:../../../../../../../Documents/rs1/compiler
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.25)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.1)
+
+  packages/sdk:
+    dependencies:
+      '@rohinik-org/runtime-client':
+        specifier: link:../../../../../../../Documents/rs1/core/runtime/client
+        version: link:../../../../../../../Documents/rs1/core/runtime/client
     devDependencies:
       '@types/node':
         specifier: ^22.0.0

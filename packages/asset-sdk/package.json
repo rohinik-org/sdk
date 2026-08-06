@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@rohinik-org/adapter-sdk": "workspace:*",
-    "@rohinik-org/compiler": "link:C:/Users/C5182688/Documents/rs1/compiler"
+    "@rohinik-org/compiler": "link:../../../../../../../Documents/rs1/compiler"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
