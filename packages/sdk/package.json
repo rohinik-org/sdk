@@ -1,0 +1,26 @@
+{
+  "name": "@rohinik-org/sdk",
+  "version": "0.15.0",
+  "type": "module",
+  "description": "Rohinik SDK — high-level client facade for the RS-1 runtime",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@rohinik-org/runtime-client": "link:C:/Users/C5182688/Documents/rs1/core/runtime/client"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "*",
+    "typescript": "*",
+    "vitest": "*"
+  }
+}
