@@ -66,11 +66,10 @@ importers:
         version: 1.6.1(@types/node@22.20.1)
 
   packages/client:
-    dependencies:
+    devDependencies:
       '@rohinik-org/execution-protocol-v1':
         specifier: file:./vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz
         version: file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz
-    devDependencies:
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.1

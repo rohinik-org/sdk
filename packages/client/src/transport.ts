@@ -34,7 +34,7 @@ export interface TransportOptions {
 
 export class HttpTransport {
   readonly baseUrl: string
-  private readonly extraHeaders: Readonly<Record<string, string>>
+  readonly extraHeaders: Readonly<Record<string, string>>
   private readonly timeoutMs: number
 
   constructor(options: TransportOptions) {
@@ -84,6 +84,23 @@ export class HttpTransport {
 
     return json as T
   }
+}
+
+/**
+ * Opens an SSE stream and returns the raw Response.
+ * Caller owns the body reader. Never throws on HTTP errors — check res.ok.
+ */
+export async function fetchStream(
+  baseUrl: string,
+  path: string,
+  extraHeaders: Readonly<Record<string, string>>,
+  signal?: AbortSignal,
+): Promise<Response> {
+  return fetch(`${baseUrl}${path}`, {
+    method: 'GET',
+    headers: { Accept: 'text/event-stream', ...extraHeaders },
+    signal: signal ?? null,
+  })
 }
 
 function isErrorEnvelope(v: unknown): v is PublicErrorEnvelope {
