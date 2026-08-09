@@ -85,9 +85,15 @@ importers:
 
   packages/sdk:
     dependencies:
+      '@rohinik-org/agent':
+        specifier: link:../../../../rs1/core/runtime/agent
+        version: link:../../../../rs1/core/runtime/agent
+      '@rohinik-org/agent-protocol-v1':
+        specifier: link:../../../../rs1/core/protocol/agent-v1
+        version: link:../../../../rs1/core/protocol/agent-v1
       '@rohinik-org/runtime-client':
-        specifier: link:../../../../../../../Documents/rs1/core/runtime/client
-        version: link:../../../../../../../Documents/rs1/core/runtime/client
+        specifier: link:../../../../rs1/core/runtime/client
+        version: link:../../../../rs1/core/runtime/client
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -438,7 +444,7 @@ packages:
     libc: [glibc]
 
   '@rohinik-org/execution-protocol-v1@file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz':
-    resolution: {integrity: sha512-56uZCYnfDjS7rniAEP/hz6YPnpZPHXWGQJ37miGcD7qsvTPK/QbBQ15Il39NFJck2sKjMh9C0WYWoSd0vlEfjQ==, tarball: file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz}
+    resolution: {integrity: sha512-AXhAUUK3I/biVZumKlJgrZlB9rgvw+03r7emuMEnahNdDTmz1iCDGCgQ1NqCs01+EKF6qLorHxNPQyvRgUeK/w==, tarball: file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz}
     version: 1.0.0
 
   '@rollup/rollup-android-arm-eabi@4.62.4':
