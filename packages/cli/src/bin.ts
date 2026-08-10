@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-import { install, start, stop, status, version, formatVersionInfo, listInstalledVersions } from './index.js'
+import { install, start, stop, status, version, formatVersionInfo, listInstalledVersions,
+         configPath, configValidate, configShow, listProviders, configureProvider,
+         runDoctor, formatDoctorReport } from './index.js'
 import { resolveHome } from '@rohinik-org/install-manifest'
 
 const args = process.argv.slice(2)
@@ -75,6 +77,72 @@ async function main(): Promise<void> {
       process.exit(1)
     }
 
+    case 'config': {
+      const sub       = args[1]
+      const configArg = flag('--config')
+      const home      = resolveHome(homeOverride)
+
+      if (sub === 'path') {
+        console.log(configPath(home, configArg))
+        break
+      }
+      if (sub === 'validate') {
+        const r = configValidate(home, configArg)
+        if (r.ok) { console.log(`Config valid: ${r.path} (${r.source})`); break }
+        console.error(`Config invalid: ${r.errors.join('; ')}`)
+        process.exit(1)
+      }
+      if (sub === 'show') {
+        const r = configShow(home, configArg)
+        if (!r) { console.error('No config file found.'); process.exit(1) }
+        console.log(`# ${r.path} (${r.source})\n${r.content}`)
+        break
+      }
+      console.error('Usage: rohinik config <path|validate|show> [--config <file>]')
+      process.exit(1)
+    }
+
+    case 'provider': {
+      const sub       = args[1]
+      const configArg = flag('--config')
+      const home      = resolveHome(homeOverride)
+
+      if (sub === 'list') {
+        const providers = listProviders(home, configArg)
+        if (providers.length === 0) { console.log('No providers configured.'); break }
+        for (const p of providers) {
+          const secrets = p.secretsResolvable ? 'secrets OK' : 'MISSING SECRETS'
+          const parts   = [p.hasApiKey && 'apiKey', p.hasBaseUrl && 'baseUrl'].filter(Boolean)
+          console.log(`  ${p.name}  [${parts.join(', ')}]  ${secrets}`)
+        }
+        break
+      }
+      if (sub === 'configure') {
+        const providerName = args[2]
+        const apiKeyEnv    = flag('--api-key-env')
+        const baseUrl      = flag('--base-url')
+        if (!providerName || !apiKeyEnv) {
+          console.error('Usage: rohinik provider configure <name> --api-key-env <VAR> [--base-url <url>]')
+          process.exit(1)
+        }
+        const r = configureProvider(home, { name: providerName, apiKeyEnv, baseUrl }, configArg)
+        if (!r.ok) { console.error(`Configure failed: ${r.reason}`); process.exit(1) }
+        console.log(`Provider ${providerName} configured with apiKey: \${${apiKeyEnv}}`)
+        break
+      }
+      console.error('Usage: rohinik provider <list|configure> [options]')
+      process.exit(1)
+    }
+
+    case 'doctor': {
+      const configArg = flag('--config')
+      const home      = resolveHome(homeOverride)
+      const report    = await runDoctor(home, configArg)
+      console.log(formatDoctorReport(report))
+      if (report.hasFail) process.exit(1)
+      break
+    }
+
     default:
       console.error([
         'Usage: rohinik <command>',
@@ -86,6 +154,9 @@ async function main(): Promise<void> {
         '  status                                          Show runtime status',
         '  version                                         Show CLI and runtime versions',
         '  runtime list                                    List installed runtime versions',
+        '  config    <path|validate|show> [--config <file>]',
+        '  provider  <list|configure <name> --api-key-env <VAR> [--base-url <url>]>',
+        '  doctor    [--config <file>]                     Diagnose installation',
         '',
         'Options:',
         '  --home <path>   Override ROHINIK_HOME',
