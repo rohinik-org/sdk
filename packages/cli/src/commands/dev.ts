@@ -12,6 +12,7 @@
 
 import { existsSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 export interface DevCommandResult {
   readonly ok:      boolean
@@ -54,7 +55,7 @@ export async function devValidate(cwd: string, opts: { entry?: string }): Promis
 
   let def: unknown
   try {
-    const mod = await import(entryPath)
+    const mod = await import(pathToFileURL(entryPath).href)
     def = mod.default ?? mod.definition ?? mod.packageDefinition
     if (!def) {
       return { ok: false, message: `Entry file "${entryPath}" has no default, .definition, or .packageDefinition export` }
@@ -66,7 +67,7 @@ export async function devValidate(cwd: string, opts: { entry?: string }): Promis
   let sdk: { validatePackageDefinition: (d: unknown) => { ok: boolean; errors: readonly string[] } }
   try {
     const sdkPath = resolveSdk(cwd)
-    sdk = await import(sdkPath)
+    sdk = await import(sdkPath.startsWith('@') ? sdkPath : pathToFileURL(sdkPath).href)
   } catch (e) {
     return { ok: false, message: `Cannot load @rohinik-org/package-sdk from "${cwd}". Run: npm install @rohinik-org/package-sdk` }
   }
@@ -97,7 +98,7 @@ export async function devPack(cwd: string, opts: {
 
   let def: unknown
   try {
-    const mod = await import(entryPath)
+    const mod = await import(pathToFileURL(entryPath).href)
     def = mod.default ?? mod.definition ?? mod.packageDefinition
     if (!def) {
       return { ok: false, message: `Entry file "${entryPath}" has no default, .definition, or .packageDefinition export` }
@@ -112,7 +113,7 @@ export async function devPack(cwd: string, opts: {
   }
   try {
     const sdkPath = resolveSdk(cwd)
-    sdk = await import(sdkPath)
+    sdk = await import(sdkPath.startsWith('@') ? sdkPath : pathToFileURL(sdkPath).href)
   } catch (e) {
     return { ok: false, message: `Cannot load @rohinik-org/package-sdk from "${cwd}". Run: npm install @rohinik-org/package-sdk` }
   }

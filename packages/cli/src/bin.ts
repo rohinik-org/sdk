@@ -4,6 +4,7 @@ import { install, start, stop, status, version, formatVersionInfo, listInstalled
          runDoctor, formatDoctorReport } from './index.js'
 import { resolveHome } from '@rohinik-org/install-manifest'
 import { devValidate, devPack } from './commands/dev.js'
+import { devCreate } from './commands/create.js'
 
 const args = process.argv.slice(2)
 const cmd  = args[0]
@@ -151,6 +152,30 @@ async function main(): Promise<void> {
       const output   = flag('--output')
       const packedBy = flag('--packed-by')
 
+      if (sub === 'create') {
+        const kind      = args[2]
+        const targetDir = args[3]
+        if (!kind) {
+          console.error('Usage: rohinik dev create <app|capability|agent|provider> [dir]')
+          process.exit(1)
+        }
+        const r = devCreate(kind, targetDir, process.cwd())
+        if (r.ok) {
+          console.log(`✓ ${r.message}`)
+          if (r.files) {
+            for (const f of r.files) console.log(`  ${f}`)
+          }
+          console.log('\nNext steps:')
+          console.log(`  cd ${targetDir ?? `my-${kind === 'app' ? 'app' : kind}`}`)
+          console.log('  npm install')
+          console.log('  npm test')
+        } else {
+          console.error(`✗ ${r.message}`)
+          process.exit(1)
+        }
+        break
+      }
+
       if (sub === 'validate') {
         const r = await devValidate(cwd, { entry })
         if (r.ok) {
@@ -176,7 +201,7 @@ async function main(): Promise<void> {
         break
       }
 
-      console.error('Usage: rohinik dev <validate|pack> [--entry <file>] [--output <file>] [--packed-by <id>]')
+      console.error('Usage: rohinik dev <create|validate|pack> [options]')
       process.exit(1)
     }
 
@@ -195,6 +220,7 @@ async function main(): Promise<void> {
         '  provider  <list|configure <name> --api-key-env <VAR> [--base-url <url>]>',
         '  doctor    [--config <file>]                     Diagnose installation',
         '  dev       <validate|pack> [--entry <file>] [--output <file>]   Package authoring',
+        '  dev       create <app|capability|agent|provider> [dir]         Scaffold new project',
         '',
         'Options:',
         '  --home <path>   Override ROHINIK_HOME',

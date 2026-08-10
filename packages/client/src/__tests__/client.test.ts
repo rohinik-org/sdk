@@ -1,6 +1,13 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { createServer, type Server } from 'node:http'
-import { createRohinikClient, RohinikClientError, EXECUTION_PROTOCOL_VERSION } from '../index.js'
+import {
+  createRohinikClient,
+  RohinikClientError,
+  ExecutionFailedError,
+  ExecutionCancelledError,
+  ExecutionTimeoutError,
+  EXECUTION_PROTOCOL_VERSION,
+} from '../index.js'
 
 // ── Minimal mock RS1 server ───────────────────────────────────────────────────
 
@@ -153,12 +160,7 @@ function makeClient() {
 async function waitTerminal(executionId: string, maxMs = 2000): Promise<void> {
   const client = makeClient()
   const handle = client.executions.attach(executionId)
-  const deadline = Date.now() + maxMs
-  while (Date.now() < deadline) {
-    const s = await handle.status()
-    if (s.terminal) return
-    await new Promise(r => setTimeout(r, 30))
-  }
+  await handle.waitUntilTerminal({ timeoutMs: maxMs, pollIntervalMs: 30 })
 }
 
 // ── Tests ─────────────────────────────────────────────────────────────────────
@@ -316,5 +318,118 @@ describe('error handling', () => {
 describe('protocol-version export', () => {
   it('EXECUTION_PROTOCOL_VERSION is v1', () => {
     expect(EXECUTION_PROTOCOL_VERSION).toBe('v1')
+  })
+})
+
+describe('execution.waitUntilTerminal()', () => {
+  it('resolves with terminal status after execution completes', async () => {
+    const client = makeClient()
+    const handle = await client.executions.start({ content: 'wait terminal test', contentType: 'TEXT' })
+    const status = await handle.waitUntilTerminal({ pollIntervalMs: 30, timeoutMs: 3000 })
+    expect(status.terminal).toBe(true)
+    expect(['COMPLETED', 'FAILED', 'CANCELLED']).toContain(status.state)
+    expect(status.executionId).toBe(handle.executionId)
+  })
+
+  it('calls onStatus callback during polling', async () => {
+    const client = makeClient()
+    const handle = await client.executions.start({ content: 'onStatus test', contentType: 'TEXT' })
+    const observed: string[] = []
+    await handle.waitUntilTerminal({
+      pollIntervalMs: 10,
+      timeoutMs: 3000,
+      onStatus: (s) => observed.push(s.state),
+    })
+    expect(observed.length).toBeGreaterThan(0)
+    // Last observed state is terminal
+    const last = observed.at(-1)
+    expect(['COMPLETED', 'FAILED', 'CANCELLED']).toContain(last)
+  })
+
+  it('throws ExecutionTimeoutError when terminal not reached within timeoutMs', async () => {
+    const client = makeClient()
+    const handle = await client.executions.start({ content: 'timeout test', contentType: 'TEXT' })
+    // Tiny timeout — will expire before mock 50ms completion
+    await expect(
+      handle.waitUntilTerminal({ pollIntervalMs: 5, timeoutMs: 1 })
+    ).rejects.toBeInstanceOf(ExecutionTimeoutError)
+  })
+
+  it('throws RohinikClientError for unknown executionId', async () => {
+    const client = makeClient()
+    const handle = client.executions.attach('no-such-id')
+    await expect(
+      handle.waitUntilTerminal({ pollIntervalMs: 10, timeoutMs: 500 })
+    ).rejects.toBeInstanceOf(RohinikClientError)
+  })
+})
+
+describe('execution.waitForResult()', () => {
+  it('returns result for COMPLETED execution', async () => {
+    const client = makeClient()
+    const handle = await client.executions.start({ content: 'waitForResult test', contentType: 'TEXT' })
+    const result = await handle.waitForResult({ pollIntervalMs: 30, timeoutMs: 3000 })
+    expect(result.executionId).toBe(handle.executionId)
+    expect(result.output).toBe('[mock] echo: waitForResult test')
+    expect(typeof result.totalDurationMs).toBe('number')
+  })
+
+  it('throws ExecutionCancelledError when execution is cancelled', async () => {
+    const client = makeClient()
+    const handle = await client.executions.start({ content: 'waitForResult cancel test', contentType: 'TEXT' })
+    // Cancel before 50ms completion fires
+    await handle.cancel({ reason: 'test cancellation' })
+    // Poll — mock immediately transitions to CANCELLED state
+    await expect(
+      handle.waitForResult({ pollIntervalMs: 10, timeoutMs: 3000 })
+    ).rejects.toBeInstanceOf(ExecutionCancelledError)
+  })
+
+  it('ExecutionCancelledError carries executionId', async () => {
+    const client = makeClient()
+    const handle = await client.executions.start({ content: 'cancel id test', contentType: 'TEXT' })
+    await handle.cancel()
+    try {
+      await handle.waitForResult({ pollIntervalMs: 10, timeoutMs: 3000 })
+    } catch (err) {
+      if (err instanceof ExecutionCancelledError) {
+        expect(err.executionId).toBe(handle.executionId)
+        expect(err.terminalState).toBe('CANCELLED')
+      }
+      // If execution completed before cancel was accepted, that's a valid race — no assertion needed
+    }
+  })
+
+  it('throws ExecutionTimeoutError when terminal not reached', async () => {
+    const client = makeClient()
+    const handle = await client.executions.start({ content: 'waitForResult timeout test', contentType: 'TEXT' })
+    await expect(
+      handle.waitForResult({ pollIntervalMs: 5, timeoutMs: 1 })
+    ).rejects.toBeInstanceOf(ExecutionTimeoutError)
+  })
+})
+
+describe('error class hierarchy', () => {
+  it('ExecutionCancelledError is instanceof ExecutionFailedError and RohinikClientError', () => {
+    const err = new ExecutionCancelledError('test-id')
+    expect(err).toBeInstanceOf(ExecutionCancelledError)
+    expect(err).toBeInstanceOf(ExecutionFailedError)
+    expect(err).toBeInstanceOf(RohinikClientError)
+    expect(err).toBeInstanceOf(Error)
+    expect(err.name).toBe('ExecutionCancelledError')
+    expect(err.terminalState).toBe('CANCELLED')
+  })
+
+  it('ExecutionFailedError carries state and executionId', () => {
+    const err = new ExecutionFailedError('exec-123', 'FAILED')
+    expect(err.executionId).toBe('exec-123')
+    expect(err.terminalState).toBe('FAILED')
+    expect(err.name).toBe('ExecutionFailedError')
+  })
+
+  it('ExecutionTimeoutError carries executionId', () => {
+    const err = new ExecutionTimeoutError('exec-456', 5000)
+    expect(err.executionId).toBe('exec-456')
+    expect(err.message).toContain('5000ms')
   })
 })

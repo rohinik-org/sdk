@@ -1,0 +1,21 @@
+{
+  "name": "my-provider",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A Rohinik model provider package",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "validate": "rohinik dev validate",
+    "pack": "rohinik dev pack"
+  },
+  "devDependencies": {
+    "@rohinik-org/provider-sdk": "^0.16.0",
+    "@rohinik-org/testing": "^0.16.0",
+    "@rohinik-org/package-sdk": "^0.16.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.0.0"
+  }
+}

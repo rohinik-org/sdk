@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "rohinik.package/v1",
+  "package": {
+    "id": "com.example.my-provider",
+    "name": "My Provider",
+    "version": "0.1.0",
+    "type": "model-provider",
+    "description": "A Rohinik model provider."
+  },
+  "provides": [
+    { "capability": "text:complete", "version": "0.1.0" }
+  ],
+  "configuration": {
+    "secrets": [
+      { "name": "MY_PROVIDER_API_KEY", "required": true, "description": "API key for the provider" }
+    ]
+  }
+}

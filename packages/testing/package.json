@@ -1,0 +1,28 @@
+{
+  "name": "@rohinik-org/testing",
+  "version": "0.16.0",
+  "type": "module",
+  "description": "Rohinik testing utilities — deterministic fixtures for Rohinik public contracts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup && tsc --emitDeclarationOnly --declaration --outDir dist",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@rohinik-org/capability-sdk": "file:./vendor/rohinik-org-capability-sdk-0.16.0.tgz",
+    "@rohinik-org/agent-sdk": "file:./vendor/rohinik-org-agent-sdk-0.16.0.tgz",
+    "@rohinik-org/provider-sdk": "file:./vendor/rohinik-org-provider-sdk-0.16.0.tgz",
+    "@rohinik-org/package-sdk": "file:./vendor/rohinik-org-package-sdk-0.16.0.tgz",
+    "@rohinik-org/client": "file:./vendor/rohinik-org-client-1.0.0.tgz",
+    "@types/node": "^22.0.0",
+    "tsup": "*",
+    "typescript": "*",
+    "vitest": "*"
+  }
+}

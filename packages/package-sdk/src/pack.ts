@@ -90,6 +90,7 @@ function tarEnd(): Buffer {
 function collectFiles(dir: string, rel = ''): string[] {
   const result: string[] = []
   for (const entry of readdirSync(join(dir, rel || '.'))) {
+    if (entry === 'node_modules' || entry === 'dist' || entry === '.git') continue
     const full    = join(dir, rel, entry)
     const relPath = rel ? `${rel}/${entry}` : entry
     const st      = statSync(full)
