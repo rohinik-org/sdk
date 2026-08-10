@@ -1,0 +1,29 @@
+{
+  "name": "@rohinik-org/cli",
+  "version": "0.16.0",
+  "type": "module",
+  "description": "Rohinik CLI — install, start, stop, status, and version management for the Rohinik runtime",
+  "bin": {
+    "rohinik": "./dist/bin.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/bin.ts --format esm --dts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@rohinik-org/install-manifest": "file:./vendor/rohinik-org-install-manifest-0.1.0.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "*",
+    "typescript": "*",
+    "vitest": "*"
+  }
+}

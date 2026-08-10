@@ -65,6 +65,25 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.1)
 
+  packages/cli:
+    dependencies:
+      '@rohinik-org/install-manifest':
+        specifier: file:./vendor/rohinik-org-install-manifest-0.1.0.tgz
+        version: file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.25)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.1)
+
   packages/client:
     devDependencies:
       '@rohinik-org/execution-protocol-v1':
@@ -446,6 +465,10 @@ packages:
   '@rohinik-org/execution-protocol-v1@file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz':
     resolution: {integrity: sha512-AXhAUUK3I/biVZumKlJgrZlB9rgvw+03r7emuMEnahNdDTmz1iCDGCgQ1NqCs01+EKF6qLorHxNPQyvRgUeK/w==, tarball: file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz}
     version: 1.0.0
+
+  '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz':
+    resolution: {integrity: sha512-Zw2TDXviwlj0oiUXnHiqio8iH9np6FCoGPwXL2Ii2Iv7YBogfzzhOLXiP9jAli8cGduo84pGACmTcFex8yOoGg==, tarball: file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz}
+    version: 0.1.0
 
   '@rollup/rollup-android-arm-eabi@4.62.4':
     resolution: {integrity: sha512-RrPokAb7dmbxFoeO3TloqHyOjgye8RkBhSqmp4aJMIex4c9r46ZstPnleDQOq1t46VOVjwIuwNogIqbodV1Vvg==}
@@ -1224,6 +1247,8 @@ snapshots:
     optional: true
 
   '@rohinik-org/execution-protocol-v1@file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz': {}
+
+  '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz': {}
 
   '@rollup/rollup-android-arm-eabi@4.62.4':
     optional: true
