@@ -1,0 +1,25 @@
+{
+  "name": "@rohinik-org/package-sdk",
+  "version": "0.16.0",
+  "type": "module",
+  "description": "Rohinik package authoring SDK — definePackage(), validate, pack (.rpk)",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup && tsc --emitDeclarationOnly --declaration --outDir dist",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@rohinik-org/package-manifest-ir": "file:./vendor/rohinik-org-package-manifest-ir-0.1.0.tgz",
+    "@rohinik-org/package-sdk": "file:./vendor/rohinik-org-package-sdk-0.1.0.tgz",
+    "@types/node": "^22.0.0",
+    "tsup": "*",
+    "typescript": "*",
+    "vitest": "*"
+  }
+}

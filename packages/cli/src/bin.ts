@@ -3,6 +3,7 @@ import { install, start, stop, status, version, formatVersionInfo, listInstalled
          configPath, configValidate, configShow, listProviders, configureProvider,
          runDoctor, formatDoctorReport } from './index.js'
 import { resolveHome } from '@rohinik-org/install-manifest'
+import { devValidate, devPack } from './commands/dev.js'
 
 const args = process.argv.slice(2)
 const cmd  = args[0]
@@ -143,6 +144,42 @@ async function main(): Promise<void> {
       break
     }
 
+    case 'dev': {
+      const sub      = args[1]
+      const cwd      = process.cwd()
+      const entry    = flag('--entry')
+      const output   = flag('--output')
+      const packedBy = flag('--packed-by')
+
+      if (sub === 'validate') {
+        const r = await devValidate(cwd, { entry })
+        if (r.ok) {
+          console.log(`✓ ${r.message}`)
+        } else {
+          console.error(`✗ ${r.message}`)
+          if (r.details) for (const d of r.details) console.error(`  ${d}`)
+          process.exit(1)
+        }
+        break
+      }
+
+      if (sub === 'pack') {
+        const r = await devPack(cwd, { entry, output, packedBy })
+        if (r.ok) {
+          console.log(`✓ ${r.message}`)
+          if (r.details) for (const d of r.details) console.log(d)
+        } else {
+          console.error(`✗ ${r.message}`)
+          if (r.details) for (const d of r.details) console.error(d)
+          process.exit(1)
+        }
+        break
+      }
+
+      console.error('Usage: rohinik dev <validate|pack> [--entry <file>] [--output <file>] [--packed-by <id>]')
+      process.exit(1)
+    }
+
     default:
       console.error([
         'Usage: rohinik <command>',
@@ -157,6 +194,7 @@ async function main(): Promise<void> {
         '  config    <path|validate|show> [--config <file>]',
         '  provider  <list|configure <name> --api-key-env <VAR> [--base-url <url>]>',
         '  doctor    [--config <file>]                     Diagnose installation',
+        '  dev       <validate|pack> [--entry <file>] [--output <file>]   Package authoring',
         '',
         'Options:',
         '  --home <path>   Override ROHINIK_HOME',
