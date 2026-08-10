@@ -1,0 +1,25 @@
+{
+  "name": "@rohinik-org/capability-sdk",
+  "version": "0.16.0",
+  "type": "module",
+  "description": "Rohinik capability authoring SDK — defineCapability(), typed context, local validation",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup && tsc --emitDeclarationOnly --declaration --outDir dist",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@rohinik-org/capability-ir": "file:./vendor/rohinik-org-capability-ir-0.1.0.tgz",
+    "@rohinik-org/capability-manifest": "file:./vendor/rohinik-org-capability-manifest-0.1.0.tgz",
+    "@types/node": "^22.0.0",
+    "tsup": "*",
+    "typescript": "*",
+    "vitest": "*"
+  }
+}
