@@ -1,0 +1,249 @@
+{
+  "schema": "stage-16f-evidence/1.0",
+  "generatedAt": "2026-08-11",
+  "stage": "16F",
+  "status": "FROZEN",
+
+  "commits": {
+    "rs1_head": "bbe62f80c08ea4667a4a62d33bab9427d2069eef",
+    "rs1_ipc_isolation": "bbe62f8",
+    "rs1_afs_016e": "0b8d428",
+    "sdk_head": "92a979d8f4b483d1991a0d54886a7ab92ed10435",
+    "sdk_t11_clean_install": "92a979d",
+    "sdk_t10_examples": "e901a49",
+    "sdk_t9_testing_templates": "2b4f6c0",
+    "sdk_t8_package_sdk": "a5c870e",
+    "sdk_t7_provider_sdk": "c4f7b5f",
+    "sdk_t6_agent_sdk": "518eb44",
+    "sdk_t5_capability_sdk": "65349d5",
+    "sdk_t4_doctor_config": "8bf2b79",
+    "sdk_t3_lifecycle_cli": "8451c59"
+  },
+
+  "packageVersions": {
+    "@rohinik-org/cli": "0.16.0",
+    "@rohinik-org/capability-sdk": "0.16.0",
+    "@rohinik-org/agent-sdk": "0.16.0",
+    "@rohinik-org/provider-sdk": "0.16.0",
+    "@rohinik-org/package-sdk": "0.16.0",
+    "@rohinik-org/testing": "0.16.0",
+    "@rohinik-org/client": "1.0.0",
+    "@rohinik-org/install-manifest": "0.1.0"
+  },
+
+  "vendorTarballs": {
+    "@rohinik-org/capability-sdk": "packages/testing/vendor/rohinik-org-capability-sdk-0.16.0.tgz",
+    "@rohinik-org/provider-sdk": "packages/testing/vendor/rohinik-org-provider-sdk-0.16.0.tgz",
+    "@rohinik-org/package-sdk": "packages/testing/vendor/rohinik-org-package-sdk-0.16.0.tgz",
+    "@rohinik-org/testing": "packages/testing/vendor/rohinik-org-testing-0.16.0.tgz",
+    "@rohinik-org/client": "packages/testing/vendor/rohinik-org-client-1.0.0.tgz",
+    "@rohinik-org/agent-sdk": "packages/testing/vendor/rohinik-org-agent-sdk-0.16.0.tgz"
+  },
+
+  "cliInventory": {
+    "commands": [
+      "install --artifact <file> --bundle <dir> --manifest <path>",
+      "start [--config <path>]",
+      "stop",
+      "status",
+      "version",
+      "runtime list",
+      "config path [--config <file>]",
+      "config validate [--config <file>]",
+      "config show [--config <file>]",
+      "provider list [--config <file>]",
+      "provider configure <name> --api-key-env <VAR> [--base-url <url>]",
+      "doctor [--config <file>]",
+      "dev create <app|capability|agent|provider> [dir]",
+      "dev validate [--entry <file>]",
+      "dev pack [--entry <file>] [--output <file>] [--packed-by <str>]"
+    ],
+    "globalFlags": ["--home <path>"],
+    "doctorChecks": [
+      "Runtime installation",
+      "Manifest integrity",
+      "CLI compatibility",
+      "Configuration",
+      "Environment variables",
+      "Runtime process",
+      "Health",
+      "Protocol execution",
+      "Protocol agent",
+      "Protocol control",
+      "Provider <name> configuration",
+      "Provider <name> readiness",
+      "Storage",
+      "Packages"
+    ]
+  },
+
+  "testCounts": {
+    "sdk_total_passing": 378,
+    "t11_clean_install": 46,
+    "t10_examples_gate": 32,
+    "t9_template_gate": 32,
+    "note_failing_suites": "13 test files fail due to unresolved workspace: deps when run from repo root (requires pnpm --filter). All are covered by gate tests in isolation."
+  },
+
+  "t11Evidence": {
+    "file": "packages/cli/src/__tests__/t11-clean-install.test.ts",
+    "commit": "92a979d",
+    "tests": 46,
+    "phases": {
+      "1_install": { "tests": 10, "description": "manifest hash, active pointer, reinstall safety, config separation, no RS1 refs" },
+      "2_start": { "tests": 3, "description": "real process spawn, PID alive, process record, duplicate guard" },
+      "3_health": { "tests": 4, "description": "HTTP health, doctor checks, no secret leakage" },
+      "4_execute": { "tests": 6, "description": "202, terminal poll, result, idempotency, 400, 404" },
+      "5_sse": { "tests": 5, "description": "ACCEPTED first, terminal, field structure, ordering, cursor reconnect" },
+      "6_compat_floors": { "tests": 8, "description": "16A runtime identity, 16B protocolVersion, 16C output, 16D payload, 16E evidence + cancel" },
+      "7_dev_authoring": { "tests": 4, "description": "create cap/prov no workspace links, validate + pack + deterministic rpk" },
+      "8_stop_stale_pid": { "tests": 6, "description": "stop, STOPPED status, STALE_PROCESS_RECORD, stale cleared" }
+    },
+    "isolatedRohinikHome": true,
+    "realRuntimeBinary": "core/runtime/server/dist/bin.js",
+    "noRs1SourceRefs": true,
+    "noWorkspaceLinks": true
+  },
+
+  "templateInventory": {
+    "gate": "packages/testing/src/__tests__/template-gate.test.ts",
+    "gateTests": 32,
+    "templates": ["app", "capability", "agent", "provider"],
+    "filesPerTemplate": {
+      "app": ["package.json", "tsconfig.json", "src/index.ts", "test/index.test.ts"],
+      "capability": ["package.json", "tsconfig.json", "src/index.ts", "src/package-definition.ts", "test/index.test.ts"],
+      "agent": ["package.json", "tsconfig.json", "src/index.ts", "src/package-definition.ts", "test/index.test.ts"],
+      "provider": ["package.json", "tsconfig.json", "src/index.ts", "src/package-definition.ts", "test/index.test.ts"]
+    }
+  },
+
+  "exampleInventory": {
+    "gate": "packages/testing/src/__tests__/examples-gate.test.ts",
+    "gateTests": 32,
+    "examples": [
+      { "dir": "01-hello-execution", "surfaces": ["createRohinikClient", "executions.start", "waitForResult"] },
+      { "dir": "02-streaming-execution", "surfaces": ["ExecutionHandle.events", "SSE streaming", "partial output"] },
+      { "dir": "03-typed-output", "surfaces": ["typed result extraction", "output field binding"] },
+      { "dir": "04-agent-delegation", "surfaces": ["agent delegation events", "traceDelegations"] },
+      { "dir": "05-governed-mutation", "surfaces": ["control approval", "traceGovernedExecution"] },
+      { "dir": "06-custom-capability", "surfaces": ["defineCapability", "dev validate", "dev pack", "rpk verification"] },
+      { "dir": "07-custom-provider", "surfaces": ["defineProvider", "health checks", "secretRefs", "rpk verification"] }
+    ]
+  },
+
+  "runtimeManifestSchema": {
+    "package": "@rohinik-org/install-manifest",
+    "version": "0.1.0",
+    "fields": ["schemaVersion", "runtimeVersion", "releaseChannel", "platform", "entrypoint", "protocols", "integrity", "config", "minimumRequirements", "cliCompatibility", "installedAt", "includedPackages"],
+    "integrityAlgorithm": "sha256",
+    "protocolFields": ["execution", "agent", "control"]
+  },
+
+  "rpkIntegrityRules": {
+    "format": "gzip-compressed tar",
+    "requiredEntry": "rohinik-integrity.json",
+    "statusValueOnPack": "unpublished",
+    "contentHashAlgorithm": "sha256",
+    "deterministic": true,
+    "constitutionalInvariant": "packed != published != trusted != installed"
+  },
+
+  "windowsPortabilityEvidence": {
+    "platform": "win32",
+    "windowsVersion": "Windows 11 Enterprise 10.0.26200",
+    "nodeVersion": "22.14.0",
+    "ipcSocketPattern": "\\\\.\\pipe\\rohinik-<sha1(ROHINIK_HOME)[0:8]>",
+    "ipcEnvVar": "ROHINIK_IPC_SOCKET",
+    "rs1Commit": "bbe62f8",
+    "sdkCommit": "92a979d",
+    "esmWindowsFix": "pathToFileURL(RUNTIME_BIN).href — bare C:/paths rejected by Node ESM loader",
+    "t11AllPassed": true
+  },
+
+  "ipcIsolationEvidence": {
+    "mechanism": "sha1(ROHINIK_HOME)[0:8] suffix in pipe/socket name",
+    "derivedInStartTs": "packages/cli/src/commands/start.ts:deriveIpcSocket()",
+    "forwardedAsEnvVar": "ROHINIK_IPC_SOCKET",
+    "consumedByRs1": "core/runtime/server/src/bin.ts",
+    "noCollisionBetweenDistinctHomes": true,
+    "verifiedByT11Phase2": true
+  },
+
+  "compatFloors": {
+    "16A": {
+      "description": "Async Execution",
+      "verifiedEndpoints": ["/v1/health", "/v1/runtime", "/v1/executions (POST)", "/v1/executions/:id (GET)"],
+      "t11Phase": 6,
+      "result": "PASS"
+    },
+    "16B": {
+      "description": "Streaming + Cancellation",
+      "verifiedEndpoints": ["/v1/executions (202 + protocolVersion)", "/v1/executions/:id/events (SSE)", "/v1/executions/:id/cancel"],
+      "t11Phase": "5+6",
+      "result": "PASS"
+    },
+    "16C": {
+      "description": "Typed Results + Schema Validation",
+      "verifiedEndpoints": ["/v1/executions/:id/result (output field)", "/v1/executions/:id/result (totalDurationMs)"],
+      "t11Phase": 6,
+      "result": "PASS"
+    },
+    "16D": {
+      "description": "Agent / Delegation SDK",
+      "verifiedEndpoints": ["SSE payload field present on all events"],
+      "t11Phase": 6,
+      "result": "PASS"
+    },
+    "16E": {
+      "description": "Approval / Verification / Recovery",
+      "verifiedEndpoints": ["/v1/executions/:id/evidence", "/v1/executions/:id/cancel (200 or 409, not 404)"],
+      "t11Phase": 6,
+      "result": "PASS"
+    }
+  },
+
+  "externalConsumerResults": {
+    "templateGate": {
+      "isolatedTmpDir": true,
+      "vendorTarballs": true,
+      "noWorkspaceLinks": true,
+      "noRs1Refs": true,
+      "typecheckPasses": true,
+      "testsPassed": true,
+      "count": 32
+    },
+    "examplesGate": {
+      "isolatedTmpDir": true,
+      "vendorTarballs": true,
+      "noWorkspaceLinks": true,
+      "noRs1Refs": true,
+      "typecheckPasses": true,
+      "testsPassed": true,
+      "validateAndPackForCapabilityAndProvider": true,
+      "rpkStatusUnpublished": true,
+      "count": 32
+    }
+  },
+
+  "secretBoundary": {
+    "configStoresOnly": "apiKeyEnv (env var name)",
+    "neverStored": "secret value",
+    "configShowRedacts": true,
+    "secretRefsInProviderDefinition": "env var names only",
+    "runtimeResolvesFromProcessEnv": true,
+    "noSecretInRpk": true,
+    "noSecretInManifest": true
+  },
+
+  "constitutionalInvariants": {
+    "27": "Authoring does not confer authority",
+    "28": "Packaging does not confer trust — status: unpublished",
+    "29": "Installation does not bypass admission",
+    "30": "packed != published != trusted != installed",
+    "31": "ROHINIK_HOME is the complete isolation boundary",
+    "32": "Secrets are never stored in config files",
+    "33": ".rpk integrity is server-authoritative at admission time",
+    "34": "SDK authoring packages do not import RS1 runtime internals",
+    "35": "IPC isolation is per-ROHINIK_HOME"
+  }
+}
