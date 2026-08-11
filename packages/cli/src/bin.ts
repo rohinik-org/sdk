@@ -2,6 +2,7 @@
 import { install, start, stop, status, version, formatVersionInfo, listInstalledVersions,
          configPath, configValidate, configShow, listProviders, configureProvider,
          runDoctor, formatDoctorReport } from './index.js'
+import { downloadAndInstall } from './commands/install.js'
 import { resolveHome } from '@rohinik-org/install-manifest'
 import { devValidate, devPack } from './commands/dev.js'
 import { devCreate } from './commands/create.js'
@@ -23,16 +24,28 @@ const homeOverride = flag('--home')
 async function main(): Promise<void> {
   switch (cmd) {
     case 'install': {
+      const versionArg  = flag('--version')
       const artifactArg = flag('--artifact')
       const bundleArg   = flag('--bundle')
       const manifestArg = flag('--manifest')
-      if (!artifactArg || !bundleArg || !manifestArg) {
-        console.error('Usage: rohinik install --artifact <file> --bundle <dir> --manifest <path>')
-        process.exit(1)
+      const baseUrlArg  = flag('--base-url')
+
+      if (versionArg) {
+        // Download mode: fetch from GitHub Releases
+        const result = await downloadAndInstall({ home: homeOverride, version: versionArg, baseUrl: baseUrlArg })
+        if (!result.ok) { console.error(`Install failed: ${result.reason}`); process.exit(1) }
+        console.log(`Installed runtime ${result.runtimeVersion} → ${result.installDir}`)
+      } else {
+        // Local mode: explicit artifact + bundle + manifest paths
+        if (!artifactArg || !bundleArg || !manifestArg) {
+          console.error('Usage: rohinik install --version <ver>  [--base-url <url>]')
+          console.error('       rohinik install --artifact <file> --bundle <dir> --manifest <path>')
+          process.exit(1)
+        }
+        const result = await install({ home: homeOverride, artifactPath: artifactArg, bundlePath: bundleArg, manifestPath: manifestArg })
+        if (!result.ok) { console.error(`Install failed: ${result.reason}`); process.exit(1) }
+        console.log(`Installed runtime ${result.runtimeVersion} → ${result.installDir}`)
       }
-      const result = await install({ home: homeOverride, artifactPath: artifactArg, bundlePath: bundleArg, manifestPath: manifestArg })
-      if (!result.ok) { console.error(`Install failed: ${result.reason}`); process.exit(1) }
-      console.log(`Installed runtime ${result.runtimeVersion} → ${result.installDir}`)
       break
     }
 

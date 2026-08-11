@@ -16,8 +16,10 @@
  */
 
 import { createHash } from 'node:crypto'
-import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, readdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, readdirSync, mkdtempSync } from 'node:fs'
 import { join, basename } from 'node:path'
+import { tmpdir } from 'node:os'
+import { execSync } from 'node:child_process'
 import { CLI_VERSION } from '../index.js'
 import {
   resolveHome,
@@ -26,6 +28,7 @@ import {
   manifestPath,
 } from '@rohinik-org/install-manifest'
 import type { InstallManifest } from '@rohinik-org/install-manifest'
+import { currentPlatform, platformSuffix } from '../platform.js'
 
 export interface InstallOptions {
   /** Explicit ROHINIK_HOME override. */
@@ -147,6 +150,79 @@ export function listInstalledVersions(runtimesDir: string): string[] {
   } catch {
     return []
   }
+}
+
+// ── Download support ──────────────────────────────────────────────────────────
+
+export interface DownloadInstallOptions {
+  home?: string
+  /** Semver version to download, e.g. "0.16.0-beta.1" */
+  version: string
+  /**
+   * Base URL to fetch assets from. In production:
+   *   https://github.com/rohinik-org/rs1/releases/download/v<version>
+   * Overridable for local mock HTTP testing (T13).
+   */
+  baseUrl?: string
+}
+
+const DEFAULT_RELEASE_BASE = 'https://github.com/rohinik-org/rs1/releases/download'
+
+export async function downloadAndInstall(
+  opts: DownloadInstallOptions,
+): Promise<InstallResult | InstallError> {
+  const plat    = currentPlatform()
+  const suffix  = platformSuffix(plat)
+  const ver     = opts.version
+  const base    = opts.baseUrl ?? `${DEFAULT_RELEASE_BASE}/v${ver}`
+
+  const tarballName  = `rohinik-runtime-${ver}-${suffix}.tar.gz`
+  const manifestName = `install-manifest-${ver}-${suffix}.json`
+
+  const workDir = mkdtempSync(join(tmpdir(), 'rhk-dl-'))
+
+  try {
+    // Download tarball
+    const tarballPath  = join(workDir, tarballName)
+    const manifestDlPath = join(workDir, manifestName)
+
+    await downloadFile(`${base}/${tarballName}`, tarballPath)
+    await downloadFile(`${base}/${manifestName}`, manifestDlPath)
+
+    // Extract tarball into workDir
+    // ponytail: Windows tar can't handle C:/ drive letters in -f or -C args; use cwd-relative
+    const extractDir = join(workDir, 'extracted')
+    mkdirSync(extractDir, { recursive: true })
+    if (process.platform === 'win32') {
+      execSync(`tar -xzf "${tarballName}" -C "extracted"`, { cwd: workDir, stdio: 'pipe' })
+    } else {
+      execSync(`tar -xzf "${tarballPath}" -C "${extractDir}"`, { stdio: 'pipe' })
+    }
+
+    // Bundle dir is the single top-level directory inside the tarball
+    const entries = readdirSync(extractDir)
+    if (entries.length !== 1) {
+      return { ok: false, reason: `Unexpected tarball structure: expected 1 top-level dir, got ${entries.join(', ')}` }
+    }
+    const bundlePath = join(extractDir, entries[0]!)
+
+    return install({
+      home:         opts.home,
+      artifactPath: tarballPath,
+      bundlePath,
+      manifestPath: manifestDlPath,
+    })
+  } finally {
+    // ponytail: leave workDir on failure for debugging; cleanup on success
+    // Caller can clean up if needed; tmp dirs are ephemeral anyway
+  }
+}
+
+async function downloadFile(url: string, dest: string): Promise<void> {
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`Download failed: ${url} → HTTP ${res.status}`)
+  const bytes = await res.arrayBuffer()
+  writeFileSync(dest, Buffer.from(bytes))
 }
 
 function activeVersionPath(statDir: string): string {

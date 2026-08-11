@@ -21,7 +21,13 @@
   "runtimeBundle": {
     "version": "0.16.0-beta.1",
     "repo": "rs1",
-    "gitTag": "v0.16.0-beta.1"
+    "gitTag": "v0.16.0-beta.1",
+    "assetNamePattern": "rohinik-runtime-{version}-{os}-{arch}.tar.gz",
+    "manifestNamePattern": "install-manifest-{version}-{os}-{arch}.json",
+    "githubRepo": "rohinik-org/rs1",
+    "githubReleaseUrl": "https://github.com/rohinik-org/rs1/releases/download",
+    "supportedPlatforms": ["win32-x64"],
+    "bundleContents": ["dist/", "node_modules/@rohinik-org/* (143 workspace packages)", "node_modules/ (fastify, zod, pino, @anthropic-ai/sdk, openai, better-sqlite3, semver, js-yaml, uuid, ajv, canonical-json, papaparse, marked, date-fns, mammoth, @typescript-eslint/typescript-estree + transitive closure)"]
   },
   "publishOrder": [
     "@rohinik-org/install-manifest",

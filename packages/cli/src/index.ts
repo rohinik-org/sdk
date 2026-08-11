@@ -1,7 +1,7 @@
-export const CLI_VERSION = '0.16.0'
+export const CLI_VERSION = '0.16.0-beta.1'
 
-export type { InstallOptions, InstallResult, InstallError } from './commands/install.js'
-export { install, readActiveVersion, readActiveManifest, listInstalledVersions } from './commands/install.js'
+export type { InstallOptions, InstallResult, InstallError, DownloadInstallOptions } from './commands/install.js'
+export { install, downloadAndInstall, readActiveVersion, readActiveManifest, listInstalledVersions } from './commands/install.js'
 
 export type { StartOptions, StartResult } from './commands/start.js'
 export { start } from './commands/start.js'
