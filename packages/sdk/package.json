@@ -1,6 +1,7 @@
 {
   "name": "@rohinik-org/sdk",
   "version": "0.15.0",
+  "private": true,
   "type": "module",
   "description": "Rohinik SDK — high-level client facade for the RS-1 runtime",
   "exports": {

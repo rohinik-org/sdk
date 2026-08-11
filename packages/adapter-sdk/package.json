@@ -1,6 +1,7 @@
 {
   "name": "@rohinik-org/adapter-sdk",
   "version": "0.15.0",
+  "private": true,
   "type": "module",
   "description": "Rohinik SDK — adapter authoring contracts and descriptor builders",
   "exports": {

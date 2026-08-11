@@ -1,13 +1,18 @@
 {
   "name": "@rohinik-org/capability-sdk",
   "version": "0.16.0",
+  "license": "Apache-2.0",
   "type": "module",
   "description": "Rohinik capability authoring SDK — defineCapability(), typed context, local validation",
+  "files": ["dist"],
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsup && tsc --emitDeclarationOnly --declaration --outDir dist",

@@ -1,6 +1,7 @@
 {
   "name": "@rohinik-org/asset-sdk",
   "version": "0.15.0",
+  "private": true,
   "type": "module",
   "description": "Rohinik SDK — semantic asset frontend contracts and descriptor builders",
   "exports": {

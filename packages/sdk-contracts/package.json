@@ -1,6 +1,7 @@
 {
   "name": "@rohinik-org/sdk-contracts",
   "version": "0.15.0",
+  "private": true,
   "type": "module",
   "description": "Rohinik SDK — authoring contracts and matcher infrastructure for adapter and asset authors",
   "exports": {
