@@ -1,10 +1,12 @@
 {
   "name": "@rohinik-org/cli",
-  "version": "0.16.0",
+  "version": "0.16.0-beta.1",
   "license": "Apache-2.0",
   "type": "module",
-  "description": "Rohinik CLI — install, start, stop, status, and version management for the Rohinik runtime",
-  "files": ["dist"],
+  "description": "Rohinik CLI \u00e2\u20ac\u201d install, start, stop, status, and version management for the Rohinik runtime",
+  "files": [
+    "dist"
+  ],
   "bin": {
     "rohinik": "./dist/bin.js"
   },
@@ -23,7 +25,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@rohinik-org/install-manifest": "^0.1.0"
+    "@rohinik-org/install-manifest": "0.16.0-beta.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -1,10 +1,12 @@
 {
   "name": "@rohinik-org/agent-sdk",
-  "version": "0.16.0",
+  "version": "0.16.0-beta.1",
   "license": "Apache-2.0",
   "type": "module",
-  "description": "Rohinik agent authoring SDK — defineAgent(), typed context, local validation",
-  "files": ["dist"],
+  "description": "Rohinik agent authoring SDK \u00e2\u20ac\u201d defineAgent(), typed context, local validation",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",

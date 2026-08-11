@@ -1,0 +1,36 @@
+{
+  "release": "0.16.0-beta.1",
+  "npmDistTag": "beta",
+  "gitTag": "v0.16.0-beta.1",
+  "date": "2026-08-11",
+  "versionPolicy": "coordinated",
+  "compatibilityRules": {
+    "cli-install-manifest": "exact",
+    "note": "During Beta, CLI pins install-manifest to exact version. Relax to ^semver on stable release."
+  },
+  "packages": {
+    "@rohinik-org/cli":              "0.16.0-beta.1",
+    "@rohinik-org/client":           "0.16.0-beta.1",
+    "@rohinik-org/capability-sdk":   "0.16.0-beta.1",
+    "@rohinik-org/agent-sdk":        "0.16.0-beta.1",
+    "@rohinik-org/provider-sdk":     "0.16.0-beta.1",
+    "@rohinik-org/package-sdk":      "0.16.0-beta.1",
+    "@rohinik-org/testing":          "0.16.0-beta.1",
+    "@rohinik-org/install-manifest": "0.16.0-beta.1"
+  },
+  "runtimeBundle": {
+    "version": "0.16.0-beta.1",
+    "repo": "rs1",
+    "gitTag": "v0.16.0-beta.1"
+  },
+  "publishOrder": [
+    "@rohinik-org/install-manifest",
+    "@rohinik-org/cli",
+    "@rohinik-org/client",
+    "@rohinik-org/capability-sdk",
+    "@rohinik-org/agent-sdk",
+    "@rohinik-org/provider-sdk",
+    "@rohinik-org/package-sdk",
+    "@rohinik-org/testing"
+  ]
+}
