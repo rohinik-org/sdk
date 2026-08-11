@@ -42,7 +42,7 @@ function dryPack(dir: string): PackEntry {
 // ── Beta public packages ───────────────────────────────────────────────────────
 
 const BETA_PACKAGES: Array<{ name: string; dir: string; vendorExpected: boolean }> = [
-  { name: '@rohinik-org/cli',            dir: join(PACKAGES, 'cli'),            vendorExpected: true  },
+  { name: '@rohinik-org/cli',            dir: join(PACKAGES, 'cli'),            vendorExpected: false },
   { name: '@rohinik-org/client',         dir: join(PACKAGES, 'client'),         vendorExpected: false },
   { name: '@rohinik-org/capability-sdk', dir: join(PACKAGES, 'capability-sdk'), vendorExpected: false },
   { name: '@rohinik-org/agent-sdk',      dir: join(PACKAGES, 'agent-sdk'),      vendorExpected: false },

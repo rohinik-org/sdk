@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "description": "Rohinik CLI — install, start, stop, status, and version management for the Rohinik runtime",
-  "files": ["dist", "vendor"],
+  "files": ["dist"],
   "bin": {
     "rohinik": "./dist/bin.js"
   },
@@ -23,7 +23,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@rohinik-org/install-manifest": "file:./vendor/rohinik-org-install-manifest-0.1.0.tgz"
+    "@rohinik-org/install-manifest": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
