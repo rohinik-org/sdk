@@ -92,7 +92,7 @@ export async function start(opts: StartOptions = {}): Promise<StartResult> {
     if (!isPidAlive(pid)) {
       return { ok: false, reason: 'Runtime process exited before becoming ready' }
     }
-    const probe = await probeHealth(endpoint, pollMs)
+    const probe = await probeHealth(endpoint, 5_000)
     if (probe.status === 'READY') {
       writeProcessRecord(home.state, {
         runtimeVersion: manifest.runtimeVersion,

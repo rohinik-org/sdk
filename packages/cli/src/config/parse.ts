@@ -174,7 +174,7 @@ function parseLines(lines: string[], startIdx: number, baseIndent: number): Pars
         obj[key] = sub.value
         i += sub.linesConsumed
       } else {
-        obj[key] = null
+        obj[key] = {}
       }
     } else {
       obj[key] = parseScalar(after)

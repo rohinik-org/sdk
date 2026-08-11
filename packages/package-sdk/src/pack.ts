@@ -159,18 +159,9 @@ export async function pack(def: PackageDefinition, opts: PackOptions): Promise<P
 
   const tarContent = Buffer.concat(entries)
 
-  // Step 7: gzip + compute SHA-256
-  const gzipChunks: Buffer[] = []
-  await new Promise<void>((resolve, reject) => {
-    const gz    = createGzip({ level: 9 })
-    const src   = Readable.from([tarContent])
-    src.pipe(gz)
-    gz.on('data', (chunk: Buffer) => gzipChunks.push(chunk))
-    gz.on('end',  resolve)
-    gz.on('error', reject)
-  })
-  const rpkBytes  = Buffer.concat(gzipChunks)
-  const hash      = createHash('sha256').update(rpkBytes).digest('hex')
+  // Step 7: hash intermediate tar (no gzip needed — only used for integrity provenance)
+  // ponytail: hashing raw tar instead of gzip; same uniqueness, skips one compress round-trip
+  const hash = createHash('sha256').update(tarContent).digest('hex')
 
   // Step 8: rebuild with integrity entry included
   const provenanceTs   = opts.packedAt ?? new Date().toISOString()
