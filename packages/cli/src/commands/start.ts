@@ -9,6 +9,7 @@
  */
 
 import { spawn } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { resolveHome, runtimeEntrypoint } from '@rohinik-org/install-manifest'
@@ -59,13 +60,15 @@ export async function start(opts: StartOptions = {}): Promise<StartResult> {
 
   // ── Spawn ─────────────────────────────────────────────────────────────────
   mkdirSync(home.logs, { recursive: true })
+  const ipcSocket = deriveIpcSocket(home.root)
   const child = spawn(process.execPath, [entrypoint], {
     detached: true,
     stdio:    'ignore',
     env: {
       ...process.env,
-      ROHINIK_HOME:   home.root,
-      ROHINIK_CONFIG: configPath,
+      ROHINIK_HOME:       home.root,
+      ROHINIK_CONFIG:     configPath,
+      ROHINIK_IPC_SOCKET: ipcSocket,
     },
   })
   child.unref()
@@ -121,4 +124,13 @@ function readPortFromConfig(configPath: string): number {
     if (match?.[1]) return parseInt(match[1], 10)
   } catch { /* fallthrough */ }
   return 8080
+}
+
+/** Derive a per-home IPC socket path so concurrent instances don't collide. */
+function deriveIpcSocket(homeRoot: string): string {
+  const hash = createHash('sha1').update(homeRoot).digest('hex').slice(0, 8)
+  // Windows named pipe; on Unix this is a socket file path — runtime handles both.
+  return process.platform === 'win32'
+    ? `\\\\.\\pipe\\rohinik-${hash}`
+    : `/tmp/rohinik-${hash}.sock`
 }
