@@ -6,8 +6,8 @@ MCowBQYDK2VwAyEA20k2WBsA1MjGONC/di70kuJtKL85uJBvXONG5cRfZLw=
 -----END PUBLIC KEY-----
 `,
   // CI dry-run test key — generated 2026-08-12, never used for production releases
-  '67d7b40b619a238e': `-----BEGIN PUBLIC KEY-----
-MCowBQYDK2VwAyEAVc8ZolkuYrwrXAyTLiQqN+xNvrJcJCq2vU3Wi1I/Nns=
+  'e0a3ebbcbc75c92c': `-----BEGIN PUBLIC KEY-----
+MCowBQYDK2VwAyEAPjehIGqDzgIGn3u6y63qLYCpeuCk31nKuYS0CPcsHy4=
 -----END PUBLIC KEY-----
 `,
 }
