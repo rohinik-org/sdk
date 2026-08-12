@@ -3,7 +3,7 @@
   "version": "0.16.0-beta.1",
   "license": "Apache-2.0",
   "type": "module",
-  "description": "Rohinik package authoring SDK \u00e2\u20ac\u201d definePackage(), validate, pack (.rpk)",
+  "description": "Rohinik package authoring SDK — definePackage(), validate, pack (.rpk)",
   "files": [
     "dist"
   ],

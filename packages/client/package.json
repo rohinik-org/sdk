@@ -3,7 +3,7 @@
   "version": "0.16.0-beta.1",
   "license": "Apache-2.0",
   "type": "module",
-  "description": "Rohinik async execution client \u00e2\u20ac\u201d protocol types bundled, no runtime dependencies",
+  "description": "Rohinik async execution client — protocol types bundled, no runtime dependencies",
   "files": [
     "dist"
   ],

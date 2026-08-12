@@ -10,3 +10,5 @@ start.mjs
 rohinik.yaml
 .worktrees
 .playwright-mcp/
+package-lock.json
+/release/
