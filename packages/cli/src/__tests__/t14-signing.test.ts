@@ -148,10 +148,12 @@ describe('BR-5 Phase 2: Ed25519 signature verification', () => {
     const sig = doc.signature
     const pubPem = TRUSTED_KEYS[sig.keyId]
 
-    // Flip one character in sourceCommit
+    // Flip one character in sourceCommit (use first char so it always changes)
+    const original = doc.release.sourceCommit as string
+    const flipped = (original.charCodeAt(0) === 48 ? '1' : '0') + original.slice(1)
     const tampered = {
       ...doc,
-      release: { ...doc.release, sourceCommit: doc.release.sourceCommit.replace('a', 'b') },
+      release: { ...doc.release, sourceCommit: flipped },
     }
     const signable = { ...tampered, signature: { ...sig, value: null } }
     const payload  = Buffer.from(canonicalJson(signable))
