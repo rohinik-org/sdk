@@ -27,9 +27,10 @@ if (!cmd) {
 
 try {
   switch (cmd) {
-    case '--check-version':          await checkVersion(args[1]);                    break
-    case '--check-npm':              await checkNpm(args[1], args[2], args[3]);      break
-    case '--check-all-sdk-packages': await checkAllSdkPackages(args[1]);             break
+    case '--check-version':           await checkVersion(args[1]);                    break
+    case '--check-npm':               await checkNpm(args[1], args[2], args[3]);      break
+    case '--check-all-sdk-packages':  await checkAllSdkPackages(args[1]);             break
+    case '--check-build-allowlist':   await checkBuildAllowlist();                    break
     default:
       console.error(`Unknown subcommand: ${cmd}`)
       process.exit(1)
@@ -114,6 +115,36 @@ async function checkAllSdkPackages(distTag) {
   }
 
   console.log(`[gate] all SDK packages OK under dist-tag ${distTag}`)
+}
+
+// ── --check-build-allowlist ───────────────────────────────────────────────────
+
+async function checkBuildAllowlist() {
+  const bvPath = join(SDK_ROOT, 'release', 'beta-version.json')
+  if (!existsSync(bvPath)) throw new Error(`beta-version.json not found at ${bvPath}`)
+  const bv = JSON.parse(readFileSync(bvPath, 'utf-8'))
+
+  const { readdirSync } = await import('node:fs')
+  const pkgsDir = join(SDK_ROOT, 'packages')
+  const deferred = []
+
+  for (const dir of readdirSync(pkgsDir)) {
+    const pkgJson = join(pkgsDir, dir, 'package.json')
+    if (!existsSync(pkgJson)) continue
+    const pkg = JSON.parse(readFileSync(pkgJson, 'utf-8'))
+    if (pkg.private) continue                                // --no-private excludes these
+    if (bv.publishOrder.includes(pkg.name)) continue        // in allowlist, fine
+    deferred.push(pkg.name)
+  }
+
+  if (deferred.length > 0) {
+    throw new Error(
+      `Non-private packages outside publishOrder would be built: ${deferred.join(', ')}. ` +
+      `Add --no-private or add them to publishOrder.`
+    )
+  }
+
+  console.log(`[gate] build-allowlist OK: all non-private packages are in publishOrder`)
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
