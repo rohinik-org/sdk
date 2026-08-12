@@ -14,7 +14,7 @@ on:
         required: true
         type: string
       ref:
-        description: 'Git ref to check out (branch, SHA, or tag). Defaults to tag. Use branch/SHA for dry-run before tag is pushed.'
+        description: 'Git ref to check out. Defaults to tag. Use branch/SHA for dry-run before tag is pushed.'
         required: false
         default: ''
         type: string
@@ -32,11 +32,9 @@ env:
   RELEASE_TAG:  ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.client_payload.tag }}
   RELEASE_VER:  ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.event.client_payload.version }}
   CHECKOUT_REF: ${{ github.event_name == 'workflow_dispatch' && (inputs.ref != '' && inputs.ref || inputs.tag) || github.event.client_payload.tag }}
-  DRY_RUN:      ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
 
 # ── Job 1: verify ─────────────────────────────────────────────────────────────
-# No environment. Runs for both dry-run and live.
-# Gates: tag matches beta-version.json, install, build.
+# No environment. Runs for dry-run and live.
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -53,7 +51,7 @@ jobs:
           echo "Tag:          ${{ env.RELEASE_TAG }}"
           echo "Version:      ${{ env.RELEASE_VER }}"
           echo "CheckoutRef:  ${{ env.CHECKOUT_REF }}"
-          echo "DryRun:       ${{ env.DRY_RUN }}"
+          echo "DryRun:       ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == 'true' || 'false' }}"
 
       - uses: pnpm/action-setup@v4
         with:
@@ -73,16 +71,15 @@ jobs:
       - name: Build
         run: pnpm -r --sort run build
 
-# ── Job 2: publish ────────────────────────────────────────────────────────────
-# Always runs (dry-run and live). Has environment: npm-publish.
-# Irreversible steps (npm publish, CLI smoke) gated by DRY_RUN.
-  publish:
+# ── Job 2: publish-dry-run ────────────────────────────────────────────────────
+# Only runs when dry_run == true. No environment (no tag restriction).
+# Proves build works and prints what would be published.
+  publish-dry-run:
     needs: verify
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == 'true' }}
     runs-on: ubuntu-latest
-    environment: npm-publish
     permissions:
       contents: read
-      id-token: write   # npm OIDC trusted publish
 
     steps:
       - uses: actions/checkout@v4
@@ -96,20 +93,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
-
-      # ── Verify install-manifest on npm (skipped in dry-run — RS1 hasn't published yet) ──
-      - name: Verify install-manifest on npm
-        if: env.DRY_RUN != 'true'
-        run: |
-          node scripts/release-gates.mjs \
-            --check-npm "@rohinik-org/install-manifest" \
-            "${{ env.RELEASE_VER }}" beta
-
-      - name: '[DRY-RUN] Skip install-manifest npm check'
-        if: env.DRY_RUN == 'true'
-        run: echo "[DRY-RUN] Would verify @rohinik-org/install-manifest@${{ env.RELEASE_VER }} on npm"
 
       - name: Install (frozen lockfile)
         run: pnpm install --frozen-lockfile --ignore-scripts
@@ -117,37 +101,65 @@ jobs:
       - name: Build
         run: pnpm -r --sort run build
 
-      # ── Publish 7 packages (skipped on dry-run) ────────────────────────────
+      - name: '[DRY-RUN] Dry run complete'
+        run: |
+          echo ""
+          echo "Dry run complete. Build passed. No environment required."
+          node -e "
+            const bv = JSON.parse(require('fs').readFileSync('release/beta-version.json','utf-8'));
+            console.log('Would verify: @rohinik-org/install-manifest@' + bv.release + ' on npm');
+            bv.publishOrder.forEach(p => console.log('Would publish: ' + p + '@' + bv.packages[p] + ' --tag beta --provenance'));
+          "
+          echo ""
+          echo "Ready for live coordinated-release dispatch from RS1."
+
+# ── Job 3: publish ────────────────────────────────────────────────────────────
+# Only runs on live path. Uses npm-publish environment.
+  publish:
+    needs: verify
+    if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run == 'true') }}
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      contents: read
+      id-token: write   # npm OIDC trusted publish
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ env.RELEASE_TAG }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Verify install-manifest on npm
+        run: |
+          node scripts/release-gates.mjs \
+            --check-npm "@rohinik-org/install-manifest" \
+            "${{ env.RELEASE_VER }}" beta
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Build
+        run: pnpm -r --sort run build
+
       - name: Publish SDK packages
-        if: env.DRY_RUN != 'true'
         run: node scripts/publish-sdk.mjs --tag beta --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: '[DRY-RUN] Skip SDK package publish'
-        if: env.DRY_RUN == 'true'
-        run: |
-          echo "[DRY-RUN] Would run: node scripts/publish-sdk.mjs --tag beta --provenance"
-          node -e "
-            const bv = JSON.parse(require('fs').readFileSync('release/beta-version.json','utf-8'));
-            bv.publishOrder.forEach(p => console.log('  Would publish: ' + p + '@' + bv.packages[p]));
-          "
-
-      # ── Verify all packages on npm (skipped on dry-run) ───────────────────
       - name: Verify all SDK packages on npm
-        if: env.DRY_RUN != 'true'
         run: node scripts/release-gates.mjs --check-all-sdk-packages beta
 
-      # ── CLI smoke install (skipped on dry-run) ─────────────────────────────
       - name: CLI smoke install
-        if: env.DRY_RUN != 'true'
         run: |
           npm install -g @rohinik-org/cli@beta --no-save
           rohinik version
-
-      - name: '[DRY-RUN] Dry run complete'
-        if: env.DRY_RUN == 'true'
-        run: |
-          echo ""
-          echo "Dry run complete. Build passed. npm-publish environment accessible."
-          echo "Ready for live coordinated-release dispatch from RS1."
