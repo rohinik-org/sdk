@@ -72,7 +72,7 @@ jobs:
         run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Build
-        run: pnpm -r --sort --no-private run build
+        run: node scripts/build-sdk.mjs
 
 # ── Job 2: publish-dry-run ────────────────────────────────────────────────────
 # Only runs when dry_run == true. No environment (no tag restriction).
@@ -102,7 +102,7 @@ jobs:
         run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Build
-        run: pnpm -r --sort --no-private run build
+        run: node scripts/build-sdk.mjs
 
       - name: '[DRY-RUN] Dry run complete'
         run: |
@@ -152,7 +152,7 @@ jobs:
         run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Build
-        run: pnpm -r --sort --no-private run build
+        run: node scripts/build-sdk.mjs
 
       - name: Publish SDK packages
         run: node scripts/publish-sdk.mjs --tag beta --provenance
