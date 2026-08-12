@@ -43,6 +43,24 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.1)
 
+  packages/agent-sdk:
+    devDependencies:
+      '@rohinik-org/agent-ir':
+        specifier: file:./vendor/rohinik-org-agent-ir-0.1.0.tgz
+        version: file:packages/agent-sdk/vendor/rohinik-org-agent-ir-0.1.0.tgz
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.25)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.1)
+
   packages/asset-sdk:
     dependencies:
       '@rohinik-org/adapter-sdk':
@@ -65,11 +83,32 @@ importers:
         specifier: '*'
         version: 1.6.1(@types/node@22.20.1)
 
+  packages/capability-sdk:
+    devDependencies:
+      '@rohinik-org/capability-ir':
+        specifier: file:./vendor/rohinik-org-capability-ir-0.1.0.tgz
+        version: file:packages/capability-sdk/vendor/rohinik-org-capability-ir-0.1.0.tgz
+      '@rohinik-org/capability-manifest':
+        specifier: file:./vendor/rohinik-org-capability-manifest-0.1.0.tgz
+        version: file:packages/capability-sdk/vendor/rohinik-org-capability-manifest-0.1.0.tgz
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.25)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.1)
+
   packages/cli:
     dependencies:
       '@rohinik-org/install-manifest':
-        specifier: file:./vendor/rohinik-org-install-manifest-0.1.0.tgz
-        version: file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz
+        specifier: file:./vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz
+        version: file:packages/cli/vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -89,6 +128,45 @@ importers:
       '@rohinik-org/execution-protocol-v1':
         specifier: file:./vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz
         version: file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.25)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.1)
+
+  packages/package-sdk:
+    devDependencies:
+      '@rohinik-org/package-manifest-ir':
+        specifier: file:./vendor/rohinik-org-package-manifest-ir-0.1.0.tgz
+        version: file:packages/package-sdk/vendor/rohinik-org-package-manifest-ir-0.1.0.tgz
+      '@rohinik-org/package-sdk':
+        specifier: file:./vendor/rohinik-org-package-sdk-0.1.0.tgz
+        version: file:packages/package-sdk/vendor/rohinik-org-package-sdk-0.1.0.tgz
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.25)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.1)
+
+  packages/provider-sdk:
+    devDependencies:
+      '@rohinik-org/package-manifest-ir':
+        specifier: file:./vendor/rohinik-org-package-manifest-ir-0.1.0.tgz
+        version: file:packages/provider-sdk/vendor/rohinik-org-package-manifest-ir-0.1.0.tgz
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.1
@@ -129,6 +207,36 @@ importers:
 
   packages/sdk-contracts:
     devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.1
+      tsup:
+        specifier: '*'
+        version: 8.5.1(postcss@8.5.25)(typescript@5.9.3)
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+      vitest:
+        specifier: '*'
+        version: 1.6.1(@types/node@22.20.1)
+
+  packages/testing:
+    devDependencies:
+      '@rohinik-org/agent-sdk':
+        specifier: file:./vendor/rohinik-org-agent-sdk-0.16.0.tgz
+        version: file:packages/testing/vendor/rohinik-org-agent-sdk-0.16.0.tgz
+      '@rohinik-org/capability-sdk':
+        specifier: file:./vendor/rohinik-org-capability-sdk-0.16.0.tgz
+        version: file:packages/testing/vendor/rohinik-org-capability-sdk-0.16.0.tgz
+      '@rohinik-org/client':
+        specifier: file:./vendor/rohinik-org-client-1.0.0.tgz
+        version: file:packages/testing/vendor/rohinik-org-client-1.0.0.tgz
+      '@rohinik-org/package-sdk':
+        specifier: file:./vendor/rohinik-org-package-sdk-0.16.0.tgz
+        version: file:packages/testing/vendor/rohinik-org-package-sdk-0.16.0.tgz
+      '@rohinik-org/provider-sdk':
+        specifier: file:./vendor/rohinik-org-provider-sdk-0.16.0.tgz
+        version: file:packages/testing/vendor/rohinik-org-provider-sdk-0.16.0.tgz
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.1
@@ -462,13 +570,60 @@ packages:
     os: [linux]
     libc: [glibc]
 
+  '@rohinik-org/agent-ir@file:packages/agent-sdk/vendor/rohinik-org-agent-ir-0.1.0.tgz':
+    resolution: {integrity: sha512-9GpmiqMxT+K8WAhzJapLZ8AiloezfnPTOvdsI/T1OOkPT81CZxXZL3l5sxD+f5MwBd9dRlkz+hqMVNHUj2oXQA==, tarball: file:packages/agent-sdk/vendor/rohinik-org-agent-ir-0.1.0.tgz}
+    version: 0.1.0
+
+  '@rohinik-org/agent-sdk@file:packages/testing/vendor/rohinik-org-agent-sdk-0.16.0.tgz':
+    resolution: {integrity: sha512-GKcujr2i6opvvTuFTlcpXkqK3etwexjc/dgIQ5pYzyhU4nJx1Y+RdHwaJE8zqUuYeV4uF9FG8cfNkbNV8D2fXA==, tarball: file:packages/testing/vendor/rohinik-org-agent-sdk-0.16.0.tgz}
+    version: 0.16.0
+
+  '@rohinik-org/capability-ir@file:packages/capability-sdk/vendor/rohinik-org-capability-ir-0.1.0.tgz':
+    resolution: {integrity: sha512-BDS7nxS5t2qYdngXV0GwtaWFLcKLwqiiIqdrdOCpo+UlaOXYVGicERXPKFWXWxZE3goZMN/wckjXUFbJKAyztw==, tarball: file:packages/capability-sdk/vendor/rohinik-org-capability-ir-0.1.0.tgz}
+    version: 0.1.0
+
+  '@rohinik-org/capability-manifest@file:packages/capability-sdk/vendor/rohinik-org-capability-manifest-0.1.0.tgz':
+    resolution: {integrity: sha512-iOxKVNG9Tywiwj4sbGHndLRKuK1etSjCAcjg5Q7q2dBNVrxN5QTwMwuPazfBNjgFRJnwz9geBT1sRzhRr0klGw==, tarball: file:packages/capability-sdk/vendor/rohinik-org-capability-manifest-0.1.0.tgz}
+    version: 0.1.0
+
+  '@rohinik-org/capability-sdk@file:packages/testing/vendor/rohinik-org-capability-sdk-0.16.0.tgz':
+    resolution: {integrity: sha512-cAibuFxhdy4jgwwrjl+AQKzpWWqHQkF4+jZWFV3sjIr8igi2E3qrK2OBNsJDjABgWv5NK8bzeh9QO5SHlzeoxw==, tarball: file:packages/testing/vendor/rohinik-org-capability-sdk-0.16.0.tgz}
+    version: 0.16.0
+
+  '@rohinik-org/client@file:packages/testing/vendor/rohinik-org-client-1.0.0.tgz':
+    resolution: {integrity: sha512-Uz94DFsL95RVycWR+kZILmDg1UW0CKuJ4muy2et7qJK7hiM+vxmUjZIdn/7rRFSGSokhitfFiQ+K2T/YgBQtNg==, tarball: file:packages/testing/vendor/rohinik-org-client-1.0.0.tgz}
+    version: 1.0.0
+
   '@rohinik-org/execution-protocol-v1@file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz':
     resolution: {integrity: sha512-AXhAUUK3I/biVZumKlJgrZlB9rgvw+03r7emuMEnahNdDTmz1iCDGCgQ1NqCs01+EKF6qLorHxNPQyvRgUeK/w==, tarball: file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz}
     version: 1.0.0
 
-  '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz':
-    resolution: {integrity: sha512-DP4x1K9HI6voC/lCA7pcDt54+nT/bvyo5WnhErXLu5xWpd0FVqhEfDNTaMMsdHxaAGXvlwxFPkm4gSKBFt+DTg==, tarball: file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz}
+  '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz':
+    resolution: {integrity: sha512-u7ax5bTFv3pdoJ78Ai3OrTY0zPL44zaNer1hloHmAQS24e/Jq8ZZJDkfeakW0topytt5bQApoyZ4R/B02WYKbA==, tarball: file:packages/cli/vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz}
+    version: 0.16.0-beta.1
+
+  '@rohinik-org/package-manifest-ir@0.1.0':
+    resolution: {integrity: sha512-4iPExvzmhbeCEZFz4M9qEJ/JokMa3Zk0sn9UNBe1Vuq6kSGyYAQ3f4g1ICwwklmcl1xywuGjbVa3fUZGy/JfGA==}
+
+  '@rohinik-org/package-manifest-ir@file:packages/package-sdk/vendor/rohinik-org-package-manifest-ir-0.1.0.tgz':
+    resolution: {integrity: sha512-4iPExvzmhbeCEZFz4M9qEJ/JokMa3Zk0sn9UNBe1Vuq6kSGyYAQ3f4g1ICwwklmcl1xywuGjbVa3fUZGy/JfGA==, tarball: file:packages/package-sdk/vendor/rohinik-org-package-manifest-ir-0.1.0.tgz}
     version: 0.1.0
+
+  '@rohinik-org/package-manifest-ir@file:packages/provider-sdk/vendor/rohinik-org-package-manifest-ir-0.1.0.tgz':
+    resolution: {integrity: sha512-4iPExvzmhbeCEZFz4M9qEJ/JokMa3Zk0sn9UNBe1Vuq6kSGyYAQ3f4g1ICwwklmcl1xywuGjbVa3fUZGy/JfGA==, tarball: file:packages/provider-sdk/vendor/rohinik-org-package-manifest-ir-0.1.0.tgz}
+    version: 0.1.0
+
+  '@rohinik-org/package-sdk@file:packages/package-sdk/vendor/rohinik-org-package-sdk-0.1.0.tgz':
+    resolution: {integrity: sha512-MrOX9M2OcVP7GICpDvb/PI1N+PclYcGf2m3TlQh+BqS43pkftDwBFK/2VEZe3tqeQXo0+z2XNZKWsB7vhBNr+Q==, tarball: file:packages/package-sdk/vendor/rohinik-org-package-sdk-0.1.0.tgz}
+    version: 0.1.0
+
+  '@rohinik-org/package-sdk@file:packages/testing/vendor/rohinik-org-package-sdk-0.16.0.tgz':
+    resolution: {integrity: sha512-cePJZfUEMfUjQ3t2/qfS8RymMWnqyz5oDG+ZUeY7+bEtcDIJv0oGTFGB7wBprZr84fNh1hfIsUc0cOqtp+4RPQ==, tarball: file:packages/testing/vendor/rohinik-org-package-sdk-0.16.0.tgz}
+    version: 0.16.0
+
+  '@rohinik-org/provider-sdk@file:packages/testing/vendor/rohinik-org-provider-sdk-0.16.0.tgz':
+    resolution: {integrity: sha512-30NnQCtwRg1xFqGN5m6Kw89q6ZGe4l7VRjlIPJdd3PLfYvu6TajuK2OhyEjknzQsH+mt3hciRwkdtCcywX3O7Q==, tarball: file:packages/testing/vendor/rohinik-org-provider-sdk-0.16.0.tgz}
+    version: 0.16.0
 
   '@rollup/rollup-android-arm-eabi@4.62.4':
     resolution: {integrity: sha512-RrPokAb7dmbxFoeO3TloqHyOjgye8RkBhSqmp4aJMIex4c9r46ZstPnleDQOq1t46VOVjwIuwNogIqbodV1Vvg==}
@@ -1246,9 +1401,35 @@ snapshots:
   '@napi-rs/lzma-linux-x64-gnu@1.5.1':
     optional: true
 
+  '@rohinik-org/agent-ir@file:packages/agent-sdk/vendor/rohinik-org-agent-ir-0.1.0.tgz': {}
+
+  '@rohinik-org/agent-sdk@file:packages/testing/vendor/rohinik-org-agent-sdk-0.16.0.tgz': {}
+
+  '@rohinik-org/capability-ir@file:packages/capability-sdk/vendor/rohinik-org-capability-ir-0.1.0.tgz': {}
+
+  '@rohinik-org/capability-manifest@file:packages/capability-sdk/vendor/rohinik-org-capability-manifest-0.1.0.tgz': {}
+
+  '@rohinik-org/capability-sdk@file:packages/testing/vendor/rohinik-org-capability-sdk-0.16.0.tgz': {}
+
+  '@rohinik-org/client@file:packages/testing/vendor/rohinik-org-client-1.0.0.tgz': {}
+
   '@rohinik-org/execution-protocol-v1@file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz': {}
 
-  '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz': {}
+  '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz': {}
+
+  '@rohinik-org/package-manifest-ir@0.1.0': {}
+
+  '@rohinik-org/package-manifest-ir@file:packages/package-sdk/vendor/rohinik-org-package-manifest-ir-0.1.0.tgz': {}
+
+  '@rohinik-org/package-manifest-ir@file:packages/provider-sdk/vendor/rohinik-org-package-manifest-ir-0.1.0.tgz': {}
+
+  '@rohinik-org/package-sdk@file:packages/package-sdk/vendor/rohinik-org-package-sdk-0.1.0.tgz':
+    dependencies:
+      '@rohinik-org/package-manifest-ir': 0.1.0
+
+  '@rohinik-org/package-sdk@file:packages/testing/vendor/rohinik-org-package-sdk-0.16.0.tgz': {}
+
+  '@rohinik-org/provider-sdk@file:packages/testing/vendor/rohinik-org-provider-sdk-0.16.0.tgz': {}
 
   '@rollup/rollup-android-arm-eabi@4.62.4':
     optional: true
