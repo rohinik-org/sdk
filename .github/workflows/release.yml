@@ -1,0 +1,62 @@
+name: Release (SDK packages)
+
+on:
+  repository_dispatch:
+    types: [coordinated-release]
+
+permissions:
+  contents: read
+  id-token: write   # npm OIDC trusted publish
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm-publish
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.client_payload.tag }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      # Gate 1: dispatch tag matches this repo's beta-version.json
+      - name: Verify dispatch tag matches beta-version.json
+        run: node scripts/release-gates.mjs --check-version "${{ github.event.client_payload.tag }}"
+
+      # Gate 2: install-manifest must be on npm before SDK packages can depend on it
+      - name: Verify install-manifest on npm
+        run: |
+          node scripts/release-gates.mjs \
+            --check-npm "@rohinik-org/install-manifest" \
+            "${{ github.event.client_payload.version }}" beta
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Build
+        run: pnpm -r --sort run build
+
+      # Step: publish 7 packages in publishOrder
+      - name: Publish SDK packages
+        run: node scripts/publish-sdk.mjs --tag beta --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Gate 3: each of the 7 packages visible on npm under dist-tag beta
+      - name: Verify all SDK packages on npm
+        run: node scripts/release-gates.mjs --check-all-sdk-packages beta
+
+      # Gate 4: CLI installs and reports a version from npm
+      - name: CLI smoke install
+        run: |
+          npm install -g @rohinik-org/cli@beta --no-save
+          rohinik version
