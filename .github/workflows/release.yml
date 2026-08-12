@@ -3,10 +3,31 @@ name: Release (SDK packages)
 on:
   repository_dispatch:
     types: [coordinated-release]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v0.16.0-beta.1) — must exist in this repo'
+        required: true
+        type: string
+      version:
+        description: 'Release version without v prefix (e.g. 0.16.0-beta.1)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run — skip publish; run all gates only'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false', 'true']
 
 permissions:
   contents: read
   id-token: write   # npm OIDC trusted publish
+
+env:
+  RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.client_payload.tag }}
+  RELEASE_VER: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.event.client_payload.version }}
+  DRY_RUN:     ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == 'true' || 'false' }}
 
 jobs:
   publish:
@@ -16,7 +37,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: refs/tags/${{ github.event.client_payload.tag }}
+          ref: refs/tags/${{ env.RELEASE_TAG }}
+
+      - name: Show run mode
+        run: |
+          echo "Tag:     ${{ env.RELEASE_TAG }}"
+          echo "Version: ${{ env.RELEASE_VER }}"
+          echo "DryRun:  ${{ env.DRY_RUN }}"
 
       - uses: pnpm/action-setup@v4
         with:
@@ -28,16 +55,21 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
 
-      # Gate 1: dispatch tag matches this repo's beta-version.json
-      - name: Verify dispatch tag matches beta-version.json
-        run: node scripts/release-gates.mjs --check-version "${{ github.event.client_payload.tag }}"
+      # Gate 1: dispatch/input tag matches this repo's beta-version.json
+      - name: Verify tag matches beta-version.json
+        run: node scripts/release-gates.mjs --check-version "${{ env.RELEASE_TAG }}"
 
-      # Gate 2: install-manifest must be on npm before SDK packages can depend on it
+      # Gate 2: install-manifest must be on npm (skip poll in dry-run)
       - name: Verify install-manifest on npm
+        if: env.DRY_RUN != 'true'
         run: |
           node scripts/release-gates.mjs \
             --check-npm "@rohinik-org/install-manifest" \
-            "${{ github.event.client_payload.version }}" beta
+            "${{ env.RELEASE_VER }}" beta
+
+      - name: '[DRY-RUN] Skip install-manifest npm check'
+        if: env.DRY_RUN == 'true'
+        run: echo "[DRY-RUN] Would verify @rohinik-org/install-manifest@${{ env.RELEASE_VER }} on npm"
 
       - name: Install (frozen lockfile)
         run: pnpm install --frozen-lockfile --ignore-scripts
@@ -47,16 +79,35 @@ jobs:
 
       # Step: publish 7 packages in publishOrder
       - name: Publish SDK packages
+        if: env.DRY_RUN != 'true'
         run: node scripts/publish-sdk.mjs --tag beta --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Gate 3: each of the 7 packages visible on npm under dist-tag beta
+      - name: '[DRY-RUN] Skip SDK package publish'
+        if: env.DRY_RUN == 'true'
+        run: |
+          echo "[DRY-RUN] Would run: node scripts/publish-sdk.mjs --tag beta --provenance"
+          node -e "
+            const bv = JSON.parse(require('fs').readFileSync('release/beta-version.json','utf-8'));
+            bv.publishOrder.forEach(p => console.log('  Would publish: ' + p + '@' + bv.packages[p]));
+          "
+
+      # Gate 3: each package visible on npm (skip in dry-run — not yet published)
       - name: Verify all SDK packages on npm
+        if: env.DRY_RUN != 'true'
         run: node scripts/release-gates.mjs --check-all-sdk-packages beta
 
-      # Gate 4: CLI installs and reports a version from npm
+      # Gate 4: CLI installs and reports a version from npm (skip in dry-run)
       - name: CLI smoke install
+        if: env.DRY_RUN != 'true'
         run: |
           npm install -g @rohinik-org/cli@beta --no-save
           rohinik version
+
+      - name: '[DRY-RUN] Dry run complete'
+        if: env.DRY_RUN == 'true'
+        run: |
+          echo ""
+          echo "Dry run complete. Gates passed: version OK, build OK."
+          echo "Ready for live dispatch from RS1 release workflow."
