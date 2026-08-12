@@ -27,7 +27,9 @@
     "githubRepo": "rohinik-org/rs1",
     "githubReleaseUrl": "https://github.com/rohinik-org/rs1/releases/download",
     "supportedPlatforms": ["win32-x64"],
-    "bundleContents": ["dist/", "node_modules/@rohinik-org/* (143 workspace packages)", "node_modules/ (fastify, zod, pino, @anthropic-ai/sdk, openai, better-sqlite3, semver, js-yaml, uuid, ajv, canonical-json, papaparse, marked, date-fns, mammoth, @typescript-eslint/typescript-estree + transitive closure)"]
+    "bundleContents": ["dist/", "node_modules/@rohinik-org/* (143 workspace packages)", "node_modules/ (fastify, zod, pino, @anthropic-ai/sdk, openai, better-sqlite3, semver, js-yaml, uuid, ajv, canonical-json, papaparse, marked, date-fns, mammoth, @typescript-eslint/typescript-estree + transitive closure)"],
+    "signingKeyId": "e7d24bfc0d0d3b69",
+    "signingAlgorithm": "Ed25519"
   },
   "publishOrder": [
     "@rohinik-org/install-manifest",

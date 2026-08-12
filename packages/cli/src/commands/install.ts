@@ -15,9 +15,9 @@
  * A failed install leaves any existing active pointer untouched.
  */
 
-import { createHash } from 'node:crypto'
+import { createHash, createPublicKey, verify as cryptoVerify } from 'node:crypto'
 import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, readdirSync, mkdtempSync } from 'node:fs'
-import { join, basename } from 'node:path'
+import { join, basename, dirname } from 'node:path'
 import { tmpdir } from 'node:os'
 import { execSync } from 'node:child_process'
 import { CLI_VERSION } from '../index.js'
@@ -29,6 +29,7 @@ import {
 } from '@rohinik-org/install-manifest'
 import type { InstallManifest } from '@rohinik-org/install-manifest'
 import { currentPlatform, platformSuffix } from '../platform.js'
+import { TRUSTED_KEYS } from '../trusted-keys.js'
 
 export interface InstallOptions {
   /** Explicit ROHINIK_HOME override. */
@@ -46,6 +47,12 @@ export interface InstallOptions {
   bundlePath: string
   /** Path to the manifest JSON for the artifact. */
   manifestPath: string
+  /**
+   * Base URL for downloading supplemental artifacts (e.g. provenance document).
+   * Defaults to deriving from manifestPath directory (local install).
+   * Set by downloadAndInstall() for network installs.
+   */
+  provenanceBaseUrl?: string
 }
 
 export interface InstallResult {
@@ -95,6 +102,23 @@ export async function install(opts: InstallOptions): Promise<InstallResult | Ins
     return {
       ok: false,
       reason: `Integrity check failed. Expected ${manifest.integrity.artifactHash}, got ${actualHash}`,
+    }
+  }
+
+  // ── 3b. Provenance + signature verification ───────────────────────────────
+  if (manifest.signingPolicy) {
+    const provenanceDir = opts.provenanceBaseUrl
+      ? null
+      : dirname(opts.manifestPath)
+    const provenanceUrl = opts.provenanceBaseUrl
+      ? `${opts.provenanceBaseUrl}/release-provenance-${manifest.runtimeVersion}.json`
+      : null
+    const provenanceErr = await verifyProvenance(provenanceDir, provenanceUrl, manifest)
+    if (provenanceErr !== null) {
+      if (manifest.signingPolicy === 'required') {
+        return { ok: false, reason: `Provenance verification failed: ${provenanceErr}` }
+      }
+      console.warn(`[rohinik] WARNING: provenance check failed: ${provenanceErr}`)
     }
   }
 
@@ -207,10 +231,11 @@ export async function downloadAndInstall(
     const bundlePath = join(extractDir, entries[0]!)
 
     return install({
-      home:         opts.home,
-      artifactPath: tarballPath,
+      home:               opts.home,
+      artifactPath:       tarballPath,
       bundlePath,
-      manifestPath: manifestDlPath,
+      manifestPath:       manifestDlPath,
+      provenanceBaseUrl:  base,
     })
   } finally {
     // ponytail: leave workDir on failure for debugging; cleanup on success
@@ -240,4 +265,89 @@ function copyBundleDir(src: string, dest: string): void {
       copyFileSync(srcPath, destPath)
     }
   }
+}
+
+/**
+ * Verify the provenance document for an artifact.
+ * provenanceDir: local directory to load release-provenance-<ver>.json from (local install).
+ * provenanceUrl: full URL to download the provenance doc from (network install).
+ * Returns null if verification passes, or an error string on failure.
+ */
+async function verifyProvenance(
+  provenanceDir: string | null,
+  provenanceUrl: string | null,
+  manifest: import('@rohinik-org/install-manifest').InstallManifest,
+): Promise<string | null> {
+  if (!manifest.provenance) return 'manifest.provenance field missing'
+
+  // Load provenance document
+  let provBytes: Buffer
+  if (provenanceDir !== null) {
+    const provFile = join(provenanceDir, `release-provenance-${manifest.runtimeVersion}.json`)
+    try {
+      provBytes = readFileSync(provFile)
+    } catch {
+      return `provenance document not found at ${provFile}`
+    }
+  } else if (provenanceUrl !== null) {
+    try {
+      const res = await fetch(provenanceUrl)
+      if (!res.ok) return `provenance download failed: HTTP ${res.status}`
+      provBytes = Buffer.from(await res.arrayBuffer())
+    } catch (e) {
+      return `provenance download error: ${e instanceof Error ? e.message : String(e)}`
+    }
+  } else {
+    return 'no provenance source (neither local dir nor URL)'
+  }
+
+  // Verify provenance hash matches manifest
+  const actualProvHash = createHash('sha256').update(provBytes).digest('hex')
+  if (actualProvHash !== manifest.provenance.provenanceHash) {
+    return `provenance hash mismatch: manifest says ${manifest.provenance.provenanceHash}, got ${actualProvHash}`
+  }
+
+  // Parse and validate signature
+  let provDoc: Record<string, unknown>
+  try {
+    provDoc = JSON.parse(provBytes.toString('utf-8'))
+  } catch {
+    return 'provenance document is not valid JSON'
+  }
+
+  const sig = provDoc['signature'] as Record<string, unknown> | null
+  if (!sig || typeof sig !== 'object') return 'provenance.signature missing'
+  const keyId  = sig['keyId']  as string | undefined
+  const sigVal = sig['value']  as string | null | undefined
+
+  if (!keyId) return 'provenance.signature.keyId missing'
+  if (!sigVal) return 'provenance.signature.value missing (unsigned artifact)'
+
+  // Unknown key always fails — even on warn policy (unknown source)
+  const pubPem = TRUSTED_KEYS[keyId]
+  if (!pubPem) return `unknown signing key: ${keyId}`
+
+  // Reconstruct signable payload (signature.value = null)
+  const signable = { ...provDoc, signature: { ...sig, value: null } }
+  const payload  = Buffer.from(canonicalJsonInstall(signable))
+  const sigBuf   = Buffer.from(sigVal, 'base64')
+
+  try {
+    const pubKey = createPublicKey(pubPem)
+    const ok = cryptoVerify(null, payload, pubKey, sigBuf)
+    if (!ok) return 'Ed25519 signature verification failed'
+  } catch (e) {
+    return `signature verification error: ${e instanceof Error ? e.message : String(e)}`
+  }
+
+  return null
+}
+
+function canonicalJsonInstall(obj: unknown): string {
+  if (Array.isArray(obj)) return '[' + obj.map(canonicalJsonInstall).join(',') + ']'
+  if (obj !== null && typeof obj === 'object') {
+    const o = obj as Record<string, unknown>
+    return '{' + Object.keys(o).sort().map(k => JSON.stringify(k) + ':' + canonicalJsonInstall(o[k])).join(',') + '}'
+  }
+  return JSON.stringify(obj)
 }

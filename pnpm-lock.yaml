@@ -467,7 +467,7 @@ packages:
     version: 1.0.0
 
   '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz':
-    resolution: {integrity: sha512-Zw2TDXviwlj0oiUXnHiqio8iH9np6FCoGPwXL2Ii2Iv7YBogfzzhOLXiP9jAli8cGduo84pGACmTcFex8yOoGg==, tarball: file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz}
+    resolution: {integrity: sha512-DP4x1K9HI6voC/lCA7pcDt54+nT/bvyo5WnhErXLu5xWpd0FVqhEfDNTaMMsdHxaAGXvlwxFPkm4gSKBFt+DTg==, tarball: file:packages/cli/vendor/rohinik-org-install-manifest-0.1.0.tgz}
     version: 0.1.0
 
   '@rollup/rollup-android-arm-eabi@4.62.4':

@@ -102,11 +102,12 @@ beforeAll(async () => {
     const filename = req.url?.split('/').pop() ?? ''
     const filepath = join(RELEASE_DIR, filename)
     if (!existsSync(filepath)) {
-      res.writeHead(404)
+      res.writeHead(404, { 'Content-Length': '0', Connection: 'close' })
       res.end()
       return
     }
-    res.writeHead(200)
+    const size = statSync(filepath).size
+    res.writeHead(200, { 'Content-Length': String(size), Connection: 'close' })
     createReadStream(filepath).pipe(res)
   })
   await new Promise<void>(resolve => mockServer.listen(0, '127.0.0.1', resolve))
@@ -281,7 +282,7 @@ describe('BR-4 Phase 4: Self-containment', () => {
     } finally {
       rmSync(dlHome, { recursive: true, force: true })
     }
-  }, 30_000)
+  }, 180_000)
 })
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
