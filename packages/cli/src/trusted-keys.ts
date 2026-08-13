@@ -10,4 +10,8 @@ MCowBQYDK2VwAyEA20k2WBsA1MjGONC/di70kuJtKL85uJBvXONG5cRfZLw=
 MCowBQYDK2VwAyEABiDT7FVF3zxc+t4QQoAczqgVNNGN1cz/hFpdt6rxFRo=
 -----END PUBLIC KEY-----
 `,
+  '0bae34200210cd8b': `-----BEGIN PUBLIC KEY-----                                                             
+MCowBQYDK2VwAyEAxNvpTsqzrweYZE3qN8YgXiTQI7Ht90gz0jBToP1Bqt4=     
+-----END PUBLIC KEY-----
+`,
 }
