@@ -42,8 +42,8 @@ for (const pkg of bv.publishOrder) {
   const pkgDir    = join(SDK_ROOT, 'packages', shortName)
 
   if (!existsSync(join(pkgDir, 'package.json'))) {
-    console.error(`[publish] ERROR: ${pkgDir}/package.json not found — cannot publish ${pkg}`)
-    process.exit(1)
+    console.log(`[publish] ${pkg}: not in SDK workspace — skipping (RS1-owned)`)
+    continue
   }
 
   const cmd = [
