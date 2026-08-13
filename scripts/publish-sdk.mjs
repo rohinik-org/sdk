@@ -46,6 +46,18 @@ for (const pkg of bv.publishOrder) {
     continue
   }
 
+  const pkgMeta    = JSON.parse(readFileSync(join(pkgDir, 'package.json'), 'utf-8'))
+  const pkgVersion = pkgMeta.version
+
+  // Skip if already published (idempotent re-run)
+  try {
+    execSync(`npm view ${pkg}@${pkgVersion} version`, { stdio: 'pipe' })
+    console.log(`[publish] ${pkg}@${pkgVersion}: already on npm — skipping`)
+    continue
+  } catch {
+    // not published yet — proceed
+  }
+
   const cmd = [
     'npm publish',
     `--tag ${tag}`,
