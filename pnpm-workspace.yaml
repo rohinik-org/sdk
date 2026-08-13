@@ -4,3 +4,4 @@ allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
   - '@rohinik-org/package-manifest-ir@0.1.0'
+  - '@rohinik-org/install-manifest@0.16.0-beta.1'

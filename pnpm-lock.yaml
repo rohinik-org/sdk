@@ -107,8 +107,8 @@ importers:
   packages/cli:
     dependencies:
       '@rohinik-org/install-manifest':
-        specifier: file:./vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz
-        version: file:packages/cli/vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz
+        specifier: 0.16.0-beta.1
+        version: 0.16.0-beta.1
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -598,9 +598,8 @@ packages:
     resolution: {integrity: sha512-AXhAUUK3I/biVZumKlJgrZlB9rgvw+03r7emuMEnahNdDTmz1iCDGCgQ1NqCs01+EKF6qLorHxNPQyvRgUeK/w==, tarball: file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz}
     version: 1.0.0
 
-  '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz':
-    resolution: {integrity: sha512-u7ax5bTFv3pdoJ78Ai3OrTY0zPL44zaNer1hloHmAQS24e/Jq8ZZJDkfeakW0topytt5bQApoyZ4R/B02WYKbA==, tarball: file:packages/cli/vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz}
-    version: 0.16.0-beta.1
+  '@rohinik-org/install-manifest@0.16.0-beta.1':
+    resolution: {integrity: sha512-nuB+H2+Fm5JIzyg67q7yAWx8tjVZany7lne1nT4DbrbmSdos036PtU9RPMM/hdrpQb5Q2/J5UJ+/M+QRENfQeQ==}
 
   '@rohinik-org/package-manifest-ir@0.1.0':
     resolution: {integrity: sha512-4iPExvzmhbeCEZFz4M9qEJ/JokMa3Zk0sn9UNBe1Vuq6kSGyYAQ3f4g1ICwwklmcl1xywuGjbVa3fUZGy/JfGA==}
@@ -1415,7 +1414,7 @@ snapshots:
 
   '@rohinik-org/execution-protocol-v1@file:packages/client/vendor/rohinik-org-execution-protocol-v1-1.0.0.tgz': {}
 
-  '@rohinik-org/install-manifest@file:packages/cli/vendor/rohinik-org-install-manifest-0.16.0-beta.1.tgz': {}
+  '@rohinik-org/install-manifest@0.16.0-beta.1': {}
 
   '@rohinik-org/package-manifest-ir@0.1.0': {}
 
