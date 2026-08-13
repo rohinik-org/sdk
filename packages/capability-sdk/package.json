@@ -28,5 +28,9 @@
     "tsup": "*",
     "typescript": "*",
     "vitest": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rohinik-org/sdk"
   }
 }
