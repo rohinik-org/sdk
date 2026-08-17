@@ -1,6 +1,6 @@
 {
   "name": "@rohinik-org/cli",
-  "version": "0.16.0-beta.1",
+  "version": "0.16.0-beta.2",
   "license": "Apache-2.0",
   "type": "module",
   "description": "Rohinik CLI â€” install, start, stop, status, and version management for the Rohinik runtime",

@@ -9,7 +9,7 @@
     "note": "During Beta, CLI pins install-manifest to exact version. Relax to ^semver on stable release."
   },
   "packages": {
-    "@rohinik-org/cli":              "0.16.0-beta.1",
+    "@rohinik-org/cli":              "0.16.0-beta.2",
     "@rohinik-org/client":           "0.16.0-beta.1",
     "@rohinik-org/capability-sdk":   "0.16.0-beta.1",
     "@rohinik-org/agent-sdk":        "0.16.0-beta.1",
